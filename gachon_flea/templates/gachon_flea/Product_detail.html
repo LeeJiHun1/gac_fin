@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Title</title>
+    <style>
+        h1 {
+          background-color: white;
+        }
+        
+        div {
+          background-color: white;
+        }
+        </style>
+</head>
+<body>
+    <div class="row"> 
+        <div class="col-md-9">
+            <a href="{{ object.image.url }}">
+                <img src="{{ object.image.url }}" style="width: 100%;">
+            </a>
+        </div>
+    
+        <ul class="col-md-3 mt-3">
+            <h1>상품명<button type="button" id="" class="btn btnEvent">
+                <img src="heart.png" alt="btnImages" class="btnImages">
+                </button></h1> 
+                {% if object.description %}<p>{{ object.description|linebreaks }}</p>
+                {% else %}<p>(blank)</p>{% endif %}
+            <h5>3,9000원</h5>
+            <h5>{{object.description}}</h5>
+        </ul>
+    </div>
+    <div>
+        <h3>판매자 정보</h3>
+        <img src="like.png">36  <img src="dislike.png"> 29
+
+
+    </div>
+    <a href="{{ object.image.url }}">
+        <img src="{{ object.image.url }}" style="width: 100%;">
+    </a>
+    <br>
+    <a href="{{ object.image.url }}">
+        <img src="{{ object.image.url }}" style="width: 100%;">
+    </a>
+    <br>
+    <a href="{{ object.image.url }}">
+        <img src="{{ object.image.url }}" style="width: 100%;">
+    </a>
+
+
+    <button type = "submit" class = "btn btn-primary">구매하기</button>
+
+
+    <div class = "container">
+        <div class = "row">
+            <div class = "col-md-12 comment-bg">
+                <!--댓글 헤더-->
+                <div class = "page-header">
+                    <h3>댓글</h3>
+                </div>
+                <!--댓글 목록-->
+                <div class = "comments-list">
+                    {% for comment in comments %}
+                    <div class = "media">
+                        <div class = "media-body">
+                            <h4 class = "media-heading user_name">
+                                {{comment.user}}
+                            </h4>
+                            {{comment.content}}
+                            <hr>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <!--댓글 작성-->
+                <div class = "row">
+                    {% if errors %}
+                    <ul>
+                        {% for error in errors %}
+                        <li><div class = "alert alert-primary">{{error}}</div></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <form method = "post" action = "{% url 'comment_write' %}" enctype="multipart/form-data" class = "col-lg-8 col-md-10 mx-auto">
+                        {% csrf_token %}
+                        <input type = "hidden" name = "post_id" value = "{{post.id}}">
+                        <div class = "form-group row">
+                            <textarea class = "form-control" name = "content" rows = "7"></textarea>
+                        </div>
+                        <div class = "form-group row float-right">
+                            <button type = "submit" class = "btn btn-primary">댓글 작성</button>
+                        </div>
+                    </form>
+                </div>   
+            </div>
+        </div>     
+
+</body>
+</html>

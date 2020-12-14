@@ -1,0 +1,106 @@
+<html lang="kor" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="DiagApp">
+    <head>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet"/>
+        <link href="ng-table.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="style.css">
+      </head>
+    <meta charset="utf-8">
+    <title>Table 정렬</title>
+    <style>
+        .form-side{/*폼을 왼쪽정렬시킴*/
+            float:left;
+        }
+    .side {/* button side정렬*/
+        width:50;
+        margin : 0 auto;
+    float:left;
+    display: inline;
+    vertical-align: middle;
+    height: 30%;
+    float:none! important;
+    }
+
+#side-bar{ /* 버튼 속성*/
+
+    margin : 20;
+    width:100px;
+    height: 50;
+}
+      table, th  {
+        border-spacing: 1cm 2em;
+        border: 1px solid #bcbcbc;
+      }
+      table {
+        border-spacing: 1cm 2em;
+        border-collapse: separate;
+        margin:auto;
+        width: 70%;
+        height: 200px;
+      }
+      th{
+        padding:20px 5; /* 이 속성으로 구매확정 버튼 100%가 가득안참 */
+        text-align: left;
+      }
+      td {
+        padding:20px  0;/* 이 속성으로 구매확정 버튼 100%가 가득안참  padding 0으로 주면 가득참.*/ 
+        margin: auto;
+        border: 1px solid #bcbcbc;
+      }
+    </style>
+  </head>
+  <body>
+      <form class="form-side">
+          <a href="{% url 'gachon_flea:index' %}">
+              <div id="side"><input type="button" id="side-bar" value="지갑 보기"></div>
+          </a>
+          <a href="{% url 'gachon_flea:buy_ing' %}">
+              <div id="side"><input type="button" id="side-bar" value="진행중인 구매"></div>
+          </a>
+          <a href="{% url 'gachon_flea:sell_ing' %}">
+              <div id="side"><input type="button" id="side-bar" value="진행중인 판매"></div>
+          </a>
+          <a href="{% url 'gachon_flea:got' %}">
+               <div id="side"><input type="button" id="side-bar" value="찜 목록"></div>
+          </a>
+          <a href="{% url 'gachon_flea:buy' %}">
+               <div id="side"><input type="button" id="side-bar" value="구매 내역"></div>
+          </a>
+          <a href="{% url 'gachon_flea:sell' %}">
+              <div id="side"><input type="button" id="side-bar" value="판매 내역"></div>
+          </a>
+          <a href="{% url 'gachon_flea:check_review' %}">
+              <div id="side"><input type="button" id="side-bar" value="후기 확인"></div>
+          </a>
+
+
+      </form>
+      {{user.username}}님 환영합니다.
+    <table border="0">
+      <thead>
+        <tr>
+            <th scope="row", rowspan="2">가천월렛(지갑아이콘 넣고)<br/><!-- 지갑보기 -->
+                잔액 : 999999원(data)</th>       
+        </tr>
+      </thead>
+
+        <form method="POST" action="{%url 'gachon_flea:exchange'%}">
+            {% csrf_token %}
+            <input name="money" type="text" id="money" class="int" maxlength="50">
+            <button type="submit" class="btn btn-primary" id="btnJoin"></button>
+        </form>
+
+      <tbody>
+      <tr>
+          <th>
+              진행중인 구매 목록입니다.
+          </th>
+      </tr>
+        {% for cart in object_list %}
+                <tr>
+                    <th><li><a href="{{ cart.product_id.get_absolute_url }}">{{ cart.product_id.name }}</a></li></th>
+                </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+  </body>
+</html>

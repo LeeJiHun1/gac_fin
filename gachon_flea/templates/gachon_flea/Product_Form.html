@@ -1,0 +1,42 @@
+{%extends "base.html"%}
+{%load widget_tweaks%}
+{%block title%}photo_form.html{%endblock%}
+{%block content%}
+    <form enctype="multipart/form-data"action=""method="post"class="card pt-0">
+    {%csrf_token%}
+    <div class = "form-group row">
+        상품 사진 :
+        <div class = "col-sm-5">  {{form.img|add_class:"form-file"}}
+        </div>
+    </div>
+    <div class = "form-group row">
+        이름 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class = "col-sm-5">
+            {{form.name|add_class:"form-control"|attr:"autofocus"}}
+        </div>
+    </div>
+    <div class = "form-group row ">
+        가격 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class = "col-sm-5">  {{form.price|add_class:"form-control"}}
+        </div>
+    </div>
+
+        <div class="form-group row">
+            상품 설명 :  <div class="col-sm-8">  {{form.description|add_class:"form-control"|attr:"rows:3"}}
+            </div>
+        </div>
+        <div class="form-group row">
+            카테고리 :  <div class="col-sm-8">  {{form.category|add_class:"form-control"|attr:"rows:3"}}
+            </div>
+        </div>
+            <br>
+            <br>
+
+
+    <div class = "form-group">
+        <div class = "offset-sm-2col-sm-5">
+            <input type = "submit" value="상품 등록하기" class="btn btn-info"/>
+        </div>
+    </div>
+    </form>
+{%endblock%}

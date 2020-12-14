@@ -1,0 +1,53 @@
+{% extends "base.html"%}
+{% block title %}Search.html{% endblock %}
+{% block content %}
+
+    <b>'{{ search_term }}'에 대한 검색 결과</b>
+    <hr>
+
+    <form action="." method="post" class="btn-toolbar justify-content-between" style="width:1000px; height:50px;">{% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit" value="검색하기" class="btn btn-primary btn-sm" style="width:100px; height:50px;">
+    </form><hr><br>
+
+    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-outline-secondary" value="low">낮은가격순</button>
+        <button type="button" class="btn btn-outline-secondary" value="high">높은가격순</button>
+    </div>
+
+
+
+    <br/><br/><br/><br/>
+    {% if object_list %}
+
+        <section class="section-name padding-y-sm">
+            <div class="container">
+                <div class="row">
+                    {% for item in object_list.all|slice:":4" %}
+
+                        <div class="col-md-3">
+                            <div href="#" class="card card-product-grid">
+                                <div class="thumbnail">
+                                    <a href="{{ item.get_absolute_url }}">
+                                        <img src="{{ item.img.thumb_url }}" style="width: 100%;">
+                                    </a>
+                                </div>
+                                <figcaption class="info-wrap">
+                                    <a href="{{ item.get_absolute_url }}" class="title">{{ item.name }}</a> <!--상품명-->
+                                    <div class="price mt-1">{{ item.description }}</div> <!-- 가격 -->
+                                </figcaption>
+                            </div>
+                        </div> <!-- col.// -->
+
+                    {% endfor %}
+                </div> <!-- row.// -->
+            </div><!-- container // -->
+        </section>
+
+    {% elif search_term %}
+        <div align="center">
+            <br><br><br>
+            <b><i>'{{ search_term }}'에 대한 검색 결과가 없습니다.</i></b>
+        </div>
+    {% endif %}
+{% endblock %}

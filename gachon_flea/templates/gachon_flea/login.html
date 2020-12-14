@@ -1,0 +1,222 @@
+<!doctype HTML>
+<head>
+	<meta charset="UTF-8">
+	<title>가천플리 로그인</title>
+	<style>
+		:root{
+	        --body-background-color: #f5f6f7;
+	        --font-color: #4e4e4e;
+	        --border-gray-color : #dadada;
+        }
+
+
+		*{
+			margin:0;
+			padding:0;
+		}
+
+		body{
+			background:var(--body-background-color);
+		}
+
+		.main-container{
+			width:100%;
+			display:flex;
+			flex-direction:column;
+			align-items:center;
+			margin-top: 21px;
+		}
+		.main-container .main-wrap{
+			width:768px;
+
+		}
+		.main-container .main-wrap .sel-lang-wrap .lang-select
+		{
+			width: 96px;
+			height: 30px;
+			color: var(--font-color);
+			border: solid 1px var(--border-gray-color);
+		}
+		.main-container .main-wrap .logo-wrap{
+			padding-top:55px;
+		}
+		.main-container .main-wrap .logo-wrap img
+		{
+			width: 231px;
+			height: 230px;
+		}
+
+		.main-container .main-wrap header .sel-lang-wrap{
+			display:flex;
+			justify-content:flex-end;
+		}
+
+		.main-container .main-wrap header .logo-wrap{
+			display:flex;	
+			flex-direction: column;
+			align-items: center;
+		}
+		.login-input-section-wrap{
+			padding-top: 60px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.login-input-wrap{
+			width: 465px;
+			height :48px;
+			border: solid 1px var(	--border-gray-color );
+			background: white;
+		}
+		.password-wrap{
+			margin-top: 13px;
+		}
+		.login-input-wrap input{
+			border: none;
+			width:430px;
+			margin-top: 10px;
+			font-size: 14px;
+			margin-left: 10px;
+			height:30px;
+		}
+		.login-button-wrap {
+			padding-top: 13px;
+		}
+		.login-button-wrap button{
+			width: 465px;
+			height :48px;
+			font-size: 18px;
+			background: #32AAFF	;
+			color: white;
+			border: solid 1px var(--naver-green-border-color);
+		}
+		.login-stay-sign-in{
+			width: 465px;
+			height: 52px;
+			
+			display: flex;
+			font-size: 15px;
+			color: #4e4e4e;
+			align-items: center;
+			justify-content: flex-start;
+			border-bottom: solid 1px var(--border-gray-color);
+		}
+		.login-stay-sign-in i{
+			font-size: 25px;
+			color: #9ba1a3;
+		}
+		.login-stay-sign-in span{
+			padding-left: 5px;
+			line-height: 25px;
+		}
+		
+		.links {
+			
+			
+			display: flex;
+			font-size: 15px;
+			align-items: center;
+			justify-content: flex-start;
+    		
+		}
+ 
+		.links a {
+  			font-size: 15px;
+  			color: #9B9B9B;
+		}
+
+		footer{
+		
+			padding-top: 95px;
+			padding-bottom: 15px;
+
+			display:flex;
+			flex-direction:column;
+			align-items:center;
+			width:768px;
+
+
+
+		}
+		.copyright-wrap{
+
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			height: 15px;
+
+
+		}
+		footer .copyright-wrap span img{
+			width: 59px;
+			
+			height: 11px;
+		}
+		footer .copyright-wrap span{
+			font-size: 13px;
+			line-height: 15px;
+		}
+	</style>
+	<script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+{% block content %}
+<form method="POST" action="{%url 'gachon_flea:login'%}">
+	<div class="main-container">
+
+	<div class="main-wrap">
+		<header>
+
+			<div class="logo-wrap">
+				<img src="/static/img/gachon.jpg">
+			</div>
+		</header>
+
+
+			<section class="login-input-section-wrap">
+
+				{% csrf_token %}
+				<div class="login-input-wrap">
+					<input name="username" placeholder="Username" type="text"></input>
+				</div>
+				<div class="login-input-wrap password-wrap">
+					<input name="password1" placeholder="Password" type="password"></input>
+				</div>
+				<div class="login-button-wrap">
+				<button type="submit" class="btn btn-primary">로그인</button>
+			</div>
+
+
+				<div class="links">
+					<br>
+					<br>
+
+					<a href="signup.html" >회원가입</a>
+
+
+
+				</div>
+				<div class="links">
+					<a href="pass.html" >비밀번호 찾기</a>
+
+				</div>
+
+
+
+			</section>
+
+
+		<footer>
+			<div class="copyright-wrap">
+				<span>	 Copyright © GACHON flea Corp. All Rights Reserved.</span>
+			</div>
+		</footer>
+
+	</div>
+	</div>
+</form>
+{% endblock %}
+</body>
