@@ -30,8 +30,9 @@ class Product(models.Model):
         self.slug = slugify(self.name, allow_unicode=True)
         super().save(*args, **kwargs)
 
+
     def get_absolute_url(self):
-        return reverse('gachon_flea:detail', args=(self.id,))
+        return reverse('gachon_flea:product_detail', args=(self.id,))
 
 class Cart(models.Model):
     owner = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)

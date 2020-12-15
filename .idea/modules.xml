@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/Documents/카카오톡 받은 파일/ch/.idea/ch.iml" filepath="$USER_HOME$/Documents/카카오톡 받은 파일/ch/.idea/ch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../OneDrive/바탕 화면/Test2/Test2/.idea/Test2.iml" filepath="$PROJECT_DIR$/../OneDrive/바탕 화면/Test2/Test2/.idea/Test2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Documents/카카오톡 받은 파일/ch/.idea/ch.iml" filepath="$PROJECT_DIR$/../Documents/카카오톡 받은 파일/ch/.idea/ch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ch98 (2)/.idea/ch99.iml" filepath="$PROJECT_DIR$/../ch98 (2)/.idea/ch99.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/final.iml" filepath="$PROJECT_DIR$/.idea/final.iml" />
     </modules>
   </component>

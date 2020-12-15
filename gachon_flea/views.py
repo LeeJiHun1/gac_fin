@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render
 from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
@@ -22,11 +22,13 @@ from django.views.generic import FormView, CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.views.generic import ListView, DetailView, TemplateView
 
+from cart.forms import CartAddProductForm
 from gachon_flea.forms import SearchForm
-from gachon_flea.models import Product, Cart, ViewBuyList, ViewSellList, Comment, Review, BlackList, Profile
+from gachon_flea.models import Product, Cart, ViewBuyList, ViewSellList, Comment, Review, BlackList, Profile, Category
 from mysite.views import OwnerOnlyMixin
 from .tokens import account_activation_token
 
+from django.conf import settings
 
 def exchangecurl(wallet, money):
     headers = {
@@ -34,7 +36,7 @@ def exchangecurl(wallet, money):
         'Content-Type': 'application/json'
     }
 
-    body = {'inputs': {"receiverAddress": "0x1da6551a7d0ede0e9069b1a2321e4a90a948292e", 'valueAmount': '100000'}}
+    body = {'inputs': {"receiverAddress": "0x1da6551a7d0ede0e9069b1a2321e4a90a948292e", 'valueAmount': money}}
 
     response = requests.post('https://api.luniverse.io/tx/v1.1/transactions/Reward2', data=json.dumps(body),
                              headers=headers)
@@ -48,24 +50,29 @@ def chargecurl(wallet, money):
         'Content-Type': 'application/json'
     }
 
-    body = {'from': '0x1da6551a7d0ede0e9069b1a2321e4a90a948292e', 'inputs': {'valueAmount': '60000000000000000000'}}
+    body = {'from': '0x1da6551a7d0ede0e9069b1a2321e4a90a948292e', 'inputs': {'valueAmount': money }}
 
     response = requests.post('https://api.luniverse.io/tx/v1.1/transactions/Support', data=json.dumps(body),
                              headers=headers)
     print(response.content)
 
 def checkbal(wallet):
-
     headers = {
         'Authorization': 'Bearer EPeknyLprhWaGvpmsWrvCQgdLbpXVsNyRM9EzCn53Dh5uH2AxSPMZFvcQtMDd1rH',
         'Content-Type': 'application/json'
     }
 
     response = requests.get(
-        'https://api.luniverse.io/tx/v1.0/wallets/0x1da6551a7d0ede0e9069b1a2321e4a90a948292e/FT9754/GT/balance',
+        'https://api.luniverse.io/tx/v1.1/wallets/' + wallet + '/FT9754/GT/balance',
         headers=headers)
-    print("UserA wallet")
-    print(response.content)
+    str = response.content.decode("utf-8")
+    my_json = json.loads(str)
+    a = json.dumps(my_json['data']['balance'])
+    print(a)
+    return a
+
+
+
 class MainLV(ListView): # 메인페이지
     model = Product
     template_name = 'gachon_flea/main.html'
@@ -89,10 +96,9 @@ class ProductCV(LoginRequiredMixin, CreateView): # 상품등록
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
-
 class ProductDV(ListView): # 상품 id 기준으로 detial 화면
     model = Product
-    template_name = 'gachon_flea/Product_detail.html'
+    #template_name = 'gachon_flea/Product_detail.html'
 
 class ProductBuy(ListView): # 상품 id 기준으로 구매하는 화면 (결제)
     template_name = 'gachon_flea/Product_buy.html'
@@ -153,6 +159,15 @@ class SearchFormView(FormView):
         return render(self.request, self.template_name, context)
 
 #Mypage 들
+class mywallet(ListView):
+    model = Product
+    template_name = 'gachon_flea/mypage/mypage_wallet.html'
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context["Cart"] = {'Cart' : Cart}
+        context["balance"] = checkbal(self.request.user.profile.wallet)
+        return context
 class buy_ing(LoginRequiredMixin, ListView): #진행 중인 구매
     model = ViewBuyList
     template_name = 'gachon_flea/mypage/mypage_buy_ing.html'
@@ -168,8 +183,16 @@ class sell_ing(LoginRequiredMixin, ListView): # 진행 중인 판매
       #  return render(request, 'index.html', {'message': msg})
 
 class got(LoginRequiredMixin, ListView): # 찜 목록
-    model = Cart
     template_name = 'gachon_flea/mypage/mypage_got.html'
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context["Cart"] = {'Cart' : Cart}
+        context["balance"] = checkbal(self.request.user.profile.wallet)
+        print(context["balance"])
+        print("------------------------------------")
+        print()
+        return context
 
     def get_queryset(self):
         return Cart.objects.filter(owner=self.request.user)
@@ -177,7 +200,6 @@ class got(LoginRequiredMixin, ListView): # 찜 목록
 class buy(LoginRequiredMixin, ListView): #구매 내역
     model = ViewBuyList
     template_name = 'gachon_flea/mypage/mypage_buy.html'
-
     def get_queryset(self):
         return ViewBuyList.objects.filter(owner=self.request.user)
 
@@ -191,13 +213,8 @@ class sell(LoginRequiredMixin, ListView): #판매 내역
 class check_review(LoginRequiredMixin, ListView): # 후기 목록
     model = Review
     template_name = 'gachon_flea/mypage/mypage_check_review.html'
-
     def get_queryset(self):
         return Review.objects.filter(owner=self.request.user)
-
-
-
-
 
 class confirm_buy(OwnerOnlyMixin, UpdateView):
     model = ViewBuyList
@@ -216,6 +233,9 @@ class make_review(LoginRequiredMixin, CreateView):
     template_name = 'confirm/make_review.html'
     success_url = reverse_lazy('gachon_flea:mypage')
 
+
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 class HomeView(TemplateView):
     template_name = 'home.html'
 
@@ -226,7 +246,6 @@ class UserCreateView(CreateView):
 
 class UserCreateDoneTV(TemplateView):
     template_name = 'registration/register_done.html'
-
 
 # 회원가입
 def signup(request):
@@ -334,13 +353,66 @@ def exchange(request):
         #wallet = self.request.user.wallet
         wallet = '0x1da6551a7d0ede0e9069b1a2321e4a90a948292e'
         exchangecurl(wallet, money)
-
-        return render(request, 'gachon_flea/Mypage.html')
+        return HttpResponse('<alert>환급되었습니다.</alert>')
+        #return render(request, 'gachon_flea/mypage/mypage_wallet.html')
     return HttpResponse('비정상적인 접근입니다.')
+
 #충전
 def charge(request):
     if request.method == "POST":
         money = request.POST['money']
         #wallet = self.request.user.wallet
         wallet = '0x1da6551a7d0ede0e9069b1a2321e4a90a948292e'
+        chargecurl(wallet, money)
+
+        return render(request, 'gachon_flea/mypage/mypage_wallet.html')
     return HttpResponse('비정상적인 접근입니다.')
+
+#댓글 기능
+class PostDV(DetailView):
+    model = Product
+    template_name = 'gachon_flea/Product_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
+        context['disqus_id'] = f"post-{self.object.id}-{self.object.name}"
+        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
+        context['disqus_title'] = f"{self.object.name}"
+        return context
+
+def product_list(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    # products = Product.objects.filter(available=True)
+    products = Product.objects.filter
+
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = Product.objects.filter(category=category)
+
+    context = {
+        'category': category,
+        'categories': categories,
+        'products': products
+    }
+    return render(request, 'gachon_flea/main.html', context)
+
+def product_detail(request, id, slug):
+    # product = get_object_or_404(Product, id=id, slug=slug, available=True)
+    product = get_object_or_404(Product, id=id, slug=slug)
+    cart_product_form = CartAddProductForm()
+    context = {
+        'product': product,
+        'cart_product_form': cart_product_form
+    }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
+        context['disqus_id'] = f"post-{self.object.id}-{self.object.name}"
+        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
+        context['disqus_title'] = f"{self.object.name}"
+        return context
+
+    return render(request, 'gachon_flea/Product_detail.html', context)

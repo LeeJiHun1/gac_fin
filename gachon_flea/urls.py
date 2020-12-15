@@ -1,5 +1,6 @@
 from django.urls import path
 from gachon_flea import views
+from django.conf.urls import url
 
 app_name = 'gachon_flea'
 urlpatterns = [
@@ -11,7 +12,11 @@ urlpatterns = [
 
     path('add/', views.ProductCV.as_view(), name="add"),  # 상품등록
 
-    path('detail/<int:pk>', views.ProductDV.as_view(), name="detail"),  # 상품 id 기준으로 detail 화면
+    #path('detail/<int:pk>', views.PostDV.as_view(), name="detail"),  # 상품 id 기준으로 detail 화면
+    url(r'^$', views.product_list, name='product_list'),
+    url(r'^(?P<category_slug>[-\w]+)/$', views.product_list, name='product_list_by_category'),
+    url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.product_detail, name='detail'),
+
 
     path('buy/<int:pk>', views.ProductBuy.as_view(), name="update"),  # 상품 id 기준으로 구매하는 화면 (결제)
 
@@ -31,6 +36,7 @@ urlpatterns = [
     path('mypage/sell/', views.sell.as_view(), name='sell'),
     path('mypage/got/', views.got.as_view(), name='got'),
     path('mypage/review/', views.check_review.as_view(), name='check_review'),
+    path('mypage/wallet/', views.mywallet.as_view(), name='wallet'),
 
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
