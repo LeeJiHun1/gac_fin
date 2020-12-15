@@ -15,7 +15,7 @@ urlpatterns = [
     #path('detail/<int:pk>', views.PostDV.as_view(), name="detail"),  # 상품 id 기준으로 detail 화면
     url(r'^$', views.product_list, name='product_list'),
     url(r'^(?P<category_slug>[-\w]+)/$', views.product_list, name='product_list_by_category'),
-    url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.product_detail, name='detail'),
+    url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.PostDV.as_view(), name='detail'),
 
 
     path('buy/<int:pk>', views.ProductBuy.as_view(), name="update"),  # 상품 id 기준으로 구매하는 화면 (결제)

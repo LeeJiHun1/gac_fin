@@ -1,101 +1,63 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-{% extends "base.html" %}
+{%extends "base.html"%}
 
-<html>
-    <style>
-        h1 {
-          background-color: white;
-        }
+{% load static %}
+
+{%block title%}Product_detail.html{%endblock%}
+
+{%block content%}
+
+<style>
+    h1 {
+        background-color: white;
+    }
         
-        div {
-          background-color: white;
-        }
+    div {
+        background-color: white;
+    }
 
-    .wishlistBtn {/*찜하기 버튼 CSS*/
-	float:right;
-	width: 100px; height: 40px;
-	margin: 5px; border: 0;
-	background: #32AAFF;
-	color: white;
-	font-weight: bold;
-	border-radius: 1px;
-	cursor: pointer;
-    object-position : "middle";
-                    }
-    .wishlistBtn:hover {
-	background: #32AAFF;
-                        }
 
-    .paymentBtn {/*구매하기 버튼 CSS*/
-	float:right;
-	width: 100px; height: 40px;
-	margin: 5px; border: 0;
-	background: #32AAFF;
-	color: white;
-	font-weight: bold;
-	border-radius: 1px;
-	cursor: pointer;
-    object-position : "middle";
-                    }
-    .paymentBtn:hover {
-	background: #32AAFF;
-                        }
-    .post-body {
-    width: 80%;
-    margin: auto;
-    font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-    font-size: 16px;
-}
-        </style>
+</style>
 
-<head>
-    <title>Title</title>
-</head>
-<body>
-    {% block content %}
-    <div class="row"> 
-        <div class="col-md-9">
-            <a href="{{ object.image.url }}">
-                <img src="{{ object.image.url }}" style="width: 100%;">
-            </a>
+
+
+<br><br>
+
+<div class="container">
+  <div class="row">
+        <div class="col-6">
+             <div class="card">
+                 <div class="card-body">
+                     <div class="col-md-6 text-right">
+                         <img src="{% if product.img %} {{ product.img.url }} {% else %} {{ product.img.url }} {% endif %}"
+                              alt="..." style="height: 500px; width: auto">
+                     </div>
+                 </div>
+             </div>
         </div>
-    
-        <ul class="col-md-3 mt-3">
-            <h1>상품명
-                <form action="{% url 'cart:cart_add' product.id %}" method="post">
+
+        <div class="col-4">
+            <h3>{{ product.name }}</h3><br>
+            <h6>카테고리:<a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h6><br><br>
+            <h4><p class="text-muted">{{ product.price }} 원</p></h4><br>
+            <form action="{% url 'cart:cart_add' product.id %}" method="post">
                 {% csrf_token %}
                 {{ cart_product_form }} <br>
                 <input type="submit" value="add to cart" class="btn btn-primary">
                 <input type="submit" value="구매하기" class="btn btn-primary">
             </form><br>
-                {% if object.description %}<p>{{ object.description|linebreaks }}</p>
-                {% else %}<p>(blank)</p>{% endif %}
-            <h5>{{object.price}}원</h5>
-            <h5>{{obeject.description}}</h5>
-        </ul>
-    </div>
+            <div class="card">
+                <p>{{ product.description|safe|linebreaksbr }}</p>
+            </div>
+        </div>
+  </div>
+</div>
+
     <div>
         <h3>판매자 정보</h3>
         <img src="like.png">{{obeject.owner.profile.good }}  <img src="dislike.png"> {{ obeject.owner.profile.bad }}
-
-
     </div>
-    <a href="{{ object.image.url }}">
-        <img src="{{ object.image.url }}" style="width: 100%;">
-    </a>
-    <a href="{{ object.image.url }}">
-        <img src="{{ object.image.url }}" style="width: 100%;">
-    </a>
-    <a href="{{ object.image.url }}">
-        <img src="{{ object.image.url }}" style="width: 100%;">
-    </a>
 
-
-    <button type = "button" class='paymentBtn' href="{% url 'gachon_flea:detail' object.id%}" >구매하기</button>
-    
-
-    <br>
+ <br>
     <div id="disqus_thread"></div>
 
 </div>
@@ -125,7 +87,3 @@ var disqus_config = function () {
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 {% endblock %}
-           
-
-</body>
-</html>

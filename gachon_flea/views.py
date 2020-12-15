@@ -1,5 +1,5 @@
 import json
-import requests
+#import requests
 from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -381,6 +381,25 @@ class PostDV(DetailView):
         context['disqus_title'] = f"{self.object.name}"
         return context
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
+        context['disqus_id'] = f"post-{self.object.id}-{self.object.name}"
+        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
+        context['disqus_title'] = f"{self.object.name}"
+        return context
+
+
+    def product_detail(request, id, slug):
+        # product = get_object_or_404(Product, id=id, slug=slug, available=True)
+        product = get_object_or_404(Product, id=id, slug=slug)
+        cart_product_form = CartAddProductForm()
+        context = {
+           'product': product,
+           'cart_product_form': cart_product_form
+        }
+        return render(request, 'gachon_flea/Product_detail.html', context)
+
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
@@ -397,22 +416,3 @@ def product_list(request, category_slug=None):
         'products': products
     }
     return render(request, 'gachon_flea/main.html', context)
-
-def product_detail(request, id, slug):
-    # product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    product = get_object_or_404(Product, id=id, slug=slug)
-    cart_product_form = CartAddProductForm()
-    context = {
-        'product': product,
-        'cart_product_form': cart_product_form
-    }
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
-        context['disqus_id'] = f"post-{self.object.id}-{self.object.name}"
-        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
-        context['disqus_title'] = f"{self.object.name}"
-        return context
-
-    return render(request, 'gachon_flea/Product_detail.html', context)

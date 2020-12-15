@@ -7,9 +7,18 @@ from django.urls import reverse
 class Category(models.Model):
     name = models.CharField('영문', max_length=20)
     K_name = models.CharField('한글', max_length=20)
+    slug = models.SlugField(max_length=150, unique=True, db_index=True, default='slugField')
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
 
     def __str__(self):
         return self.K_name
+
+    def get_absolute_url(self):
+        return reverse('gachon_flea:product_list_by_category', args=[self.slug])
 
 class Product(models.Model):
     name = models.CharField('이름', max_length = 20) # 상품명
@@ -19,9 +28,11 @@ class Product(models.Model):
     img = ThumbnailImageField('이미지', upload_to='gachon_flea/%Y/%m')
     description = models.TextField('상품 설명')
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
+    slug = models.SlugField(max_length=100, db_index=True,  default='slugField')
 
     class Meta:
         ordering = ('name',)
+        index_together = (('id', 'slug'),)
 
     def __str__(self):
         return self.name
@@ -30,9 +41,8 @@ class Product(models.Model):
         self.slug = slugify(self.name, allow_unicode=True)
         super().save(*args, **kwargs)
 
-
     def get_absolute_url(self):
-        return reverse('gachon_flea:product_detail', args=(self.id,))
+        return reverse('gachon_flea:detail', args=[self.id, self.slug])
 
 class Cart(models.Model):
     owner = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)
@@ -42,6 +52,7 @@ class Cart(models.Model):
 
     def get_absolute_url(self):
         return reverse('gachon_flea:detail', args=(self.product_id,))
+
 class ViewBuyList(models.Model):
     product_id = models.ForeignKey(Product, on_delete = models.CASCADE, blank = True, null = True)
     owner = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null=True)
