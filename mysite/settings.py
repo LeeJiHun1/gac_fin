@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gachon_flea.apps.GachonFleaConfig',
     'widget_tweaks',
-    'six'
+    'six',
+    'cart.apps.CartConfig',
 
 ]
 
@@ -124,7 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 LOGIN_REDIRECT_URL = '/'  #추가
 
@@ -144,3 +145,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # 사이트와 관련한 자동응답을 받을 이메일 주소,'webmaster@localhost'
 
 MESSAGE_LEVEL = messages_constants.DEBUG
+
+CART_SESSION_ID = 'cart'
+
+DISQUS_SHORTNAME = 'pydjango-web-programming'
+DISQUS_MY_DOMAIN = 'http://localhost' #자기 IP주소

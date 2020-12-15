@@ -6,6 +6,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="ch" />
     <orderEntry type="module" module-name="ch" />
+    <orderEntry type="module" module-name="Test2" />
+    <orderEntry type="module" module-name="ch99" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

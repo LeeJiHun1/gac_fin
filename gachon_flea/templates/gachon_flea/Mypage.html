@@ -50,7 +50,7 @@
   </head>
   <body>
       <form class="form-side">
-          <a href="{% url 'gachon_flea:index' %}">
+          <a href="{% url 'gachon_flea:wallet' %}">
               <div id="side"><input type="button" id="side-bar" value="지갑 보기"></div>
           </a>
           <a href="{% url 'gachon_flea:buy_ing' %}">
@@ -79,15 +79,9 @@
       <thead>
         <tr>
             <th scope="row", rowspan="2">가천월렛(지갑아이콘 넣고)<br/><!-- 지갑보기 -->
-                잔액 : 999999원(data)</th>       
+                잔액 : {{ balance }} 원 입니다.</th>
         </tr>
       </thead>
-
-        <form method="POST" action="{%url 'gachon_flea:exchange'%}">
-            {% csrf_token %}
-            <input name="money" type="text" id="money" class="int" maxlength="50">
-            <button type="submit" class="btn btn-primary" id="btnJoin"></button>
-        </form>
 
       <tbody>
       <tr>

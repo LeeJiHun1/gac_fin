@@ -63,7 +63,7 @@
     
         <ul class="col-md-3 mt-3">
             <h1>상품명
-                <button type = "button" class='wishlistBtn' href="{% url 'cart:cart_add' object.id%}" >찜하기</button></h1>
+                <button type = "button" class='wishlistBtn' href="{% url 'gachon_flea:wishlist' object.id%}" >찜하기</button></h1> 
                 {% if object.description %}<p>{{ object.description|linebreaks }}</p>
                 {% else %}<p>(blank)</p>{% endif %}
             <h5>{{object.price}}원</h5>
@@ -72,7 +72,7 @@
     </div>
     <div>
         <h3>판매자 정보</h3>
-        <img src="like.png">{{obeject.owner.profile.good }}  <img src="dislike.png"> {{ obeject.owner.profile.bad }}
+        <img src="like.png">{{obeject.owner.name}}  <img src="dislike.png"> {{obeject.owner.name}}
 
 
     </div>
@@ -87,7 +87,7 @@
     </a>
 
 
-    <button type = "button" class='paymentBtn' href="{% url 'gachon_flea:detail' object.id%}" >구매하기</button>
+    <button type = "button" class='paymentBtn' href="{% url 'gachon_flea:payment' object.id%}" >구매하기</button>
     
 
     <br>

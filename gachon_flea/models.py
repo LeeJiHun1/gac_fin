@@ -30,6 +30,7 @@ class Product(models.Model):
         self.slug = slugify(self.name, allow_unicode=True)
         super().save(*args, **kwargs)
 
+
     def get_absolute_url(self):
         return reverse('gachon_flea:detail', args=(self.id,))
 

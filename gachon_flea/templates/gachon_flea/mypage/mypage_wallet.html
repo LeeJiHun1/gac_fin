@@ -1,0 +1,91 @@
+{%extends "base.html"%}
+
+{% load static %}
+{%block title%}마이페이지{%endblock%}
+
+<style>
+        .form-side{/*폼을 왼쪽정렬시킴*/
+            float:left;
+        }
+    .side {/* button side정렬*/
+        width:50;
+        margin : 0 auto;
+    float:left;
+    display: inline;
+    vertical-align: middle;
+    height: 30%;
+    float:none! important;
+    }
+
+#side-bar{ /* 버튼 속성*/
+
+    margin : 20;
+    width:100px;
+    height: 50;
+}
+      table, th  {
+        border-spacing: 1cm 2em;
+        border: 1px solid #bcbcbc;
+      }
+      table {
+        border-spacing: 1cm 2em;
+        border-collapse: separate;
+        margin:auto;
+        width: 70%;
+        height: 200px;
+      }
+      th{
+        padding:20px 5; /* 이 속성으로 구매확정 버튼 100%가 가득안참 */
+        text-align: left;
+      }
+      td {
+        padding:20px  0;/* 이 속성으로 구매확정 버튼 100%가 가득안참  padding 0으로 주면 가득참.*/
+        margin: auto;
+        border: 1px solid #bcbcbc;
+      }
+    </style>
+
+{%block content%}
+
+
+      <form class="form-side">
+              <a href="{% url 'gachon_flea:etc' %}" class="btn btn-outline-dark" id="side-bar">기타</a>&emsp;
+
+              <div id="side"><input type="button" id="side-bar" value="지갑 보기" onclick="{% url 'gachon_flea:etc' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="진행중인 구매" onclick="{% url 'gachon_flea:buy_ing' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="진행중인 판매" onclick="{% url 'gachon_flea:sell_ing' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="찜 목록" onclick="{% url 'gachon_flea:got' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="구매 내역" onclick="{% url 'gachon_flea:buy' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="판매 내역" onclick="{% url 'gachon_flea:sell' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="후기 확인" onclick="{% url 'gachon_flea:check_review' %}"></div>
+      </form>
+    <table border="0">
+      <thead>
+        <tr>
+            <th scope="row", rowspan="2">가천월렛(지갑아이콘 넣고)<br/><!-- 지갑보기 -->
+                잔액 : {{ balance }} 원 입니다.</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+          <th>
+              환전 기능입니다. <br>
+              <form method="POST" action="{%url 'gachon_flea:exchange'%}">
+            {% csrf_token %}
+            <input name="money" type="text" id="money" class="int" maxlength="50">
+            <button type="submit" class="btn btn-primary" id="btnJoin"></button>
+        </form>
+          </th>
+      </tr>
+        <th>
+                충전 기능입니다.<br>
+            <form method="POST" action="{%url 'gachon_flea:charge'%}">
+            {% csrf_token %}
+            <input name="money" type="text" id="money" class="int" maxlength="50">
+            <button type="submit" class="btn btn-primary" id="btnJoin"></button>
+        </form>
+
+        </th>
+      </tbody>
+    </table>
+ {% endblock %}

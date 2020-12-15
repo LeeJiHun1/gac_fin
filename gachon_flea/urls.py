@@ -11,7 +11,7 @@ urlpatterns = [
 
     path('add/', views.ProductCV.as_view(), name="add"),  # 상품등록
 
-    path('detail/<int:pk>', views.ProductDV.as_view(), name="detail"),  # 상품 id 기준으로 detail 화면
+    path('detail/<int:pk>', views.PostDV.as_view(), name="detail"),  # 상품 id 기준으로 detail 화면
 
     path('buy/<int:pk>', views.ProductBuy.as_view(), name="update"),  # 상품 id 기준으로 구매하는 화면 (결제)
 
@@ -31,6 +31,7 @@ urlpatterns = [
     path('mypage/sell/', views.sell.as_view(), name='sell'),
     path('mypage/got/', views.got.as_view(), name='got'),
     path('mypage/review/', views.check_review.as_view(), name='check_review'),
+    path('mypage/wallet/', views.mywallet.as_view(), name='wallet'),
 
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
