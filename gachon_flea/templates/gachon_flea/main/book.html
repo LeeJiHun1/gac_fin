@@ -64,7 +64,7 @@
 <section class="section-name padding-y-sm">
     <div class="container">
         <div class="row">
-            {% for item in object_list.all|slice:":4" %}
+            {% for item in object_list.all|slice:":100" %}
                 {% if item.category.name == 'book' %}
                 <div class="col-md-3">
                     <div href="#" class="card card-product-grid">
