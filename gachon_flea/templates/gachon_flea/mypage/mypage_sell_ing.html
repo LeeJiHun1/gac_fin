@@ -73,11 +73,8 @@
               진행중인 판매 목록입니다.
           </th>
       </tr>
-        {% for cart in object_list %}
-
-                <tr>
-                    <th><li>{{ cart.product_id.name }}</li></th>
-                </tr>
+        {% for product in object_list %}
+            {{ product.name }}
         {%endfor%}
       </tbody>
     </table>

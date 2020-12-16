@@ -189,14 +189,11 @@ class buy_ing(LoginRequiredMixin, ListView): #진행 중인 구매
     template_name = 'gachon_flea/mypage/mypage_buy_ing.html'
 
 class sell_ing(LoginRequiredMixin, ListView): # 진행 중인 판매
-    model = ViewSellList
+    model = Product
     template_name = 'gachon_flea/mypage/mypage_sell_ing.html'
 
     def get_queryset(self):
-        return ViewSellList.objects.filter(owner=self.request.user)
-    #def index(request):
-     #   msg = 'My Message'
-      #  return render(request, 'index.html', {'message': msg})
+        return Product.objects.filter(owner=self.request.user)
 
 class got(LoginRequiredMixin, ListView): # 찜 목록
     template_name = 'gachon_flea/mypage/mypage_got.html'
@@ -368,8 +365,8 @@ def activate(request, uid64, token):
 def exchange(request):
     if request.method == "POST":
         money = request.POST['money']
-        #wallet = self.request.user.wallet
-        wallet = '0x1da6551a7d0ede0e9069b1a2321e4a90a948292e'
+        wallet = request.user.wallet
+     #   wallet = '0x1da6551a7d0ede0e9069b1a2321e4a90a948292e'
         exchangecurl(wallet, money)
         return HttpResponse('<alert>환급되었습니다.</alert>')
         #return render(request, 'gachon_flea/mypage/mypage_wallet.html')
@@ -379,8 +376,8 @@ def exchange(request):
 def charge(request):
     if request.method == "POST":
         money = request.POST['money']
-        #wallet = self.request.user.wallet
-        wallet = '0x1da6551a7d0ede0e9069b1a2321e4a90a948292e'
+        wallet = request.user.wallet
+      #  wallet = '0x1da6551a7d0ede0e9069b1a2321e4a90a948292e'
         chargecurl(wallet, money)
 
         return render(request, 'gachon_flea/mypage/mypage_wallet.html')

@@ -29,6 +29,7 @@ class Product(models.Model):
     description = models.TextField('상품 설명')
     category = models.ForeignKey(Category, on_delete = models.CASCADE)
     slug = models.SlugField(max_length=100, db_index=True,  default='slugField')
+    sell = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('name',)
