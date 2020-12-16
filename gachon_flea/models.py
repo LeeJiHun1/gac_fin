@@ -59,7 +59,6 @@ class ViewBuyList(models.Model):
     owner = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null=True)
     before = models.BooleanField('판매 여부', default = False) # F = 구매 전 T = 구매 후
 
-
     class Meta:
         ordering = ('owner',)
     def get_absolute_url(self):

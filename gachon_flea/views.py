@@ -503,8 +503,10 @@ class create_review(LoginRequiredMixin, CreateView): # 후기 등록
     template_name = 'gachon_flea/Review_Form.html'
     fields = ['product_id', 'content', 'evaluation']
     success_url = reverse_lazy('gachon_flea:check_review')
+    print(type(fields))
 
     def form_valid(self, form):
+        print(form.instance)
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
@@ -550,7 +552,11 @@ def confirm_buy(request, pk):
 
     return HttpResponse('비정상적인 접근입니다.')
 
+def add_buy_list(request, pk):
+    pid = get_object_or_404(Product, id=pk)
+    ViewBuyList.objects.create(owner=request.user, product_id = pid)
 
+    return render(request, 'complete/complete.html')
 
 
 
