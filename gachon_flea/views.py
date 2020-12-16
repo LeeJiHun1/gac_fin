@@ -435,6 +435,55 @@ def charge(request):
         return render(request, 'gachon_flea/mypage/mypage_wallet.html')
     return HttpResponse('비정상적인 접근입니다.')
 
+#댓글 기능
+class PostDV(DetailView):
+    model = Product
+    template_name = 'gachon_flea/Product_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
+        context['disqus_id'] = f"post-{self.object.id}-{self.object.name}"
+        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
+        context['disqus_title'] = f"{self.object.name}"
+        return context
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
+        context['disqus_id'] = f"post-{self.object.id}-{self.object.name}"
+        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
+        context['disqus_title'] = f"{self.object.name}"
+        return context
+
+
+    def product_detail(request, id, slug):
+        # product = get_object_or_404(Product, id=id, slug=slug, available=True)
+        product = get_object_or_404(Product, id=id, slug=slug)
+        cart_product_form = CartAddProductForm()
+        context = {
+           'product': product,
+           'cart_product_form': cart_product_form
+        }
+        return render(request, 'gachon_flea/Product_detail.html', context)
+
+def product_list(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    # products = Product.objects.filter(available=True)
+    products = Product.objects.filter
+
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = Product.objects.filter(category=category)
+
+    context = {
+        'category': category,
+        'categories': categories,
+        'products': products
+    }
+    return render(request, 'gachon_flea/main.html', context)
+
 
 # 리뷰 생성, 목록, 수정, 삭제
 class create_review(LoginRequiredMixin, CreateView): # 후기 등록
