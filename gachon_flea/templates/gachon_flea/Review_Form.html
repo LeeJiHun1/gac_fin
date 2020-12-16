@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+    <style type="text/css">
+        .auto-style2 {
+            width: 579px;
+            height: 30px;
+        }
+        .auto-style3 {
+            width: 884px;
+            height: 555px;
+        }
+    </style>
+
+
+
+<h1>상품 후기 등록</h1><br>
+
+    {% if form.errors %}
+    <div class="alert alert-danger">
+        <div class="font-weight-bold">Wrong! Please correct the error(s) below.</div>
+        {{ form.errors }}
+    </div>
+    {% endif %}
+
+
+<form action="." method="post" class="card pt-3" align="center">{% csrf_token %}
+
+        <div class="form-group row">
+            &emsp;&emsp;리뷰 등록 상품 :
+            <div class="col-sm-5">
+                {% if product_id.before == True %} <!--구매 후 상태인 것-->
+                    {{ form.product_id|add_class:"form-control"|attr:"rows:3" }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+        </div>
+
+        <div class="form-group row">
+            &emsp;&emsp;후기 작성 :
+            <div class="col-sm-5">
+                {{ form.content|add_class:"form-control"|attr:"rows:3" }}
+            </div>
+            &emsp;&emsp;&emsp;&emsp;
+            <!--좋아요 등록--><!--(추가사항) 좋아요 등록(블록체인), 좋아요 미등록(싫어요 카운트)해야됨-->
+            <img src="{% static 'img/like.png' %}" width="60" height="60">
+
+            <div class="col-sm-2">
+                {{ form.evaluation|add_class:"form-control" }}
+            </div>
+
+
+        </div>
+
+
+        <div class="form-group" align="center">
+            <div class="offset-sm-2 col-sm-5">
+                <input type="submit" value="등록하기" class="btn btn-info" onclick="displayRadioValue()">
+            </div>
+        </div>
+</form>
+
+
+{% endblock %}

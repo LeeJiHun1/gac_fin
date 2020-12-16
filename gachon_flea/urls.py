@@ -38,6 +38,12 @@ urlpatterns = [
     path('mypage/review/', views.check_review.as_view(), name='check_review'),
     path('mypage/wallet/', views.mywallet.as_view(), name='wallet'),
 
+    path('mypage/review/', views.check_review.as_view(), name='check_review'),
+    path('mypage/review/create/', views.create_review.as_view(), name='create_review'),
+    path('mypage/review/<int:pk>/modify/', views.modify_review.as_view(), name='modify_review'),
+    path('mypage/review/<int:pk>/delete/', views.delete_review.as_view(), name='delete_review'),
+
+
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
     path('logout/', views.logout, name='logout'),

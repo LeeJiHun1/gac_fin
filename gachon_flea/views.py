@@ -416,3 +416,31 @@ def product_list(request, category_slug=None):
         'products': products
     }
     return render(request, 'gachon_flea/main.html', context)
+
+
+# 리뷰 생성, 목록, 수정, 삭제
+class create_review(LoginRequiredMixin, CreateView): # 후기 등록
+    model = Review
+    template_name = 'gachon_flea/Review_Form.html'
+    fields = ['product_id', 'content', 'evaluation']
+    success_url = reverse_lazy('gachon_flea:check_review')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+class check_review(LoginRequiredMixin, ListView): # 후기 목록
+    model = Review
+    template_name = 'gachon_flea/mypage/mypage_check_review.html'
+
+    def get_queryset(self):
+        return Review.objects.filter(owner=self.request.user)
+
+class modify_review(OwnerOnlyMixin, UpdateView): # 후기 수정
+    model = Review
+    fields = ['product_id', 'content', 'evaluation']
+    success_url = reverse_lazy('gachon_flea:check_review')
+
+class delete_review(LoginRequiredMixin, DeleteView): # 후기 삭제
+    model = Review
+    success_url = reverse_lazy('gachon_flea:check_review')
