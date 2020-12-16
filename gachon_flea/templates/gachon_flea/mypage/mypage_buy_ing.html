@@ -70,7 +70,7 @@
       <thead>
         <tr>
             <th scope="row", rowspan="2">가천월렛(지갑아이콘 넣고)<br/><!-- 지갑보기 -->
-                잔액 : 999999원(data)</th>
+                잔액 : {{ balance }}원 입니다.</th>
         </tr>
       </thead>
       <tbody>
@@ -80,10 +80,10 @@
           </th>
       </tr>
         {% for product in object_list %}
-                    {% if product.product_id.sell == False %}
+                    {% if product.sell == False %}
                 <tr>
-                    <th><li>{{ product.product_id.name }}</li>
-                    <form method="POST" action="{% url 'gachon_flea:confirm_buy' product.product_id.id %}">
+                    <th><li>{{ product.name }}</li>
+                    <form method="POST" action="{% url 'gachon_flea:confirm_buy' product.id %}">
                     {% csrf_token %}
                         <button type="submit">구매 확정</button>
                     </form>
@@ -96,10 +96,11 @@
               구매 완료한 목록입니다.
           </th>
       </tr>
+
             {% for product in object_list %}
-                    {% if product.product_id.sell == True %}
+                    {% if product.sell == True %}
                 <tr>
-                    <th><li>{{ product.product_id.name }}</li>
+                    <th><li>{{ product.name }}</li>
 
                     </th>
                 </tr>
