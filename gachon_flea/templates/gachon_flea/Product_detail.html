@@ -37,7 +37,7 @@
 
         <div class="col-4">
             <h3>{{ product.name }}</h3><br>
-            <h6>카테고리:<a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h6><br><br>
+            <h6>카테고리:<a href="{{ product.category.get_absolute_url }}" style="color: #0054FF">{{ product.category }}</a></h6><br><br>
             <h4><p class="text-muted">{{ product.price }} 원</p></h4><br>
             <div class="card">
                 <p>{{ product.description|safe|linebreaksbr }}</p>
