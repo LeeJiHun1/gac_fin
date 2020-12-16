@@ -55,7 +55,7 @@
               <div id="side"><input type="button" id="side-bar" value="지갑 보기" onclick="{% url 'gachon_flea:etc' %}"></div>
               <div id="side"><input type="button" id="side-bar" value="진행중인 구매" onclick="{% url 'gachon_flea:buy_ing' %}"></div>
               <div id="side"><input type="button" id="side-bar" value="진행중인 판매" onclick="{% url 'gachon_flea:sell_ing' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="찜 목록" onclick="{% url 'gachon_flea:got' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="찜 목록" onclick="{% url 'cart:cart_detail' %}"></div>
               <div id="side"><input type="button" id="side-bar" value="구매 내역" onclick="{% url 'gachon_flea:buy' %}"></div>
               <div id="side"><input type="button" id="side-bar" value="판매 내역" onclick="{% url 'gachon_flea:sell' %}"></div>
               <div id="side"><input type="button" id="side-bar" value="후기 확인" onclick="{% url 'gachon_flea:check_review' %}"></div>
@@ -74,12 +74,9 @@
           </th>
       </tr>
         {% for cart in object_list %}
-                {% csrf_token %}
 
                 <tr>
-                    <th><li>{{ cart.product_id.name }}</li> <form method="POST" action="{% url 'gachon_flea:confirm_buy' cart.product_id.id %}">
-                        <button type="submit">구매 확정</button>
-                    </form></th>
+                    <th><li>{{ cart.product_id.name }}</li></th>
                 </tr>
         {%endfor%}
       </tbody>

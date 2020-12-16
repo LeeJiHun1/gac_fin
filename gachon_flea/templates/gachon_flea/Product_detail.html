@@ -21,8 +21,8 @@
 
 
 <br><br>
-
-<div class="container">
+<form enctype="multipart/form-data">
+<div class="container" >
   <div class="row">
         <div class="col-6">
              <div class="card">
@@ -39,28 +39,26 @@
             <h3>{{ product.name }}</h3><br>
             <h6>카테고리:<a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h6><br><br>
             <h4><p class="text-muted">{{ product.price }} 원</p></h4><br>
-            <form action="{% url 'cart:cart_add' product.id %}" method="post">
-                {% csrf_token %}
-                {{ cart_product_form }} <br>
-                <input type="submit" value="add to cart" class="btn btn-primary">
-                <input type="submit" value="구매하기" class="btn btn-primary">
-            </form><br>
             <div class="card">
                 <p>{{ product.description|safe|linebreaksbr }}</p>
             </div>
+            <div><br><br>
+                <h5>판매자 정보</h5>
+                <img src="like.png">{{obeject.owner.profile.good }}  <img src="dislike.png"> {{ obeject.owner.profile.bad }}
+            </div>
+
+                <a href="{% url 'gachon_flea:add_cart' product.id %}">
+                 <input type="button" value="add to cart" class="btn btn-primary">
+                </a>
         </div>
   </div>
 </div>
 
-    <div>
-        <h3>판매자 정보</h3>
-        <img src="/static/img/like.png">{{ product.owner.profile.good }}  <img src="/static/img/dislike.png"> {{ product.owner.profile.bad }}
-    </div>
+</form>
 
  <br>
     <div id="disqus_thread"></div>
 
-</div>
 
 {% endblock %}
 

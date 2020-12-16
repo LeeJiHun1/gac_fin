@@ -12,8 +12,10 @@ urlpatterns = [
 
     path('add/', views.ProductCV.as_view(), name="add"),  # 상품등록
 
-    #path('detail/<int:pk>', views.PostDV.as_view(), name="detail"),  # 상품 id 기준으로 detail 화면
-    
+    path('detail/<int:pk>/<slug>', views.PostDV.as_view(), name='detail'),  # 상품 id 기준으로 detail 화면
+    url(r'^$', views.product_list, name='product_list'),
+    path('detail/add/<int:id>/', views.product_detail, name='add_cart'),
+    url(r'^(?P<category_slug>[-\w]+)/$', views.product_list, name='product_list_by_category'),
 
     path('buy/<int:pk>', views.ProductBuy.as_view(), name="update"),  # 상품 id 기준으로 구매하는 화면 (결제)
 

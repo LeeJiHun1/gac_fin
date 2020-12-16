@@ -1,0 +1,15 @@
+{%extends "base.html"%}
+
+{% load static %}
+
+{%block title%}Product_detail_add_cart.html{%endblock%}
+
+{%block content%}
+
+<h3>'{{ product.name }}'을 장바구니에 추가하시겠습니까?</h3>
+<form action="{% url 'cart:cart_add' product.id %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ cart_product_form }} <br>
+    <input type="submit" value="add to cart" class="btn btn-primary">
+</form>
+{%endblock%}

@@ -124,9 +124,47 @@ class ProductCV(LoginRequiredMixin, CreateView): # 상품등록
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
-class ProductDV(ListView): # 상품 id 기준으로 detial 화면
+#댓글 기능
+class PostDV(DetailView):
     model = Product
-    #template_name = 'gachon_flea/Product_detail.html'
+    template_name = 'gachon_flea/Product_detail.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
+        context['disqus_id'] = f"post-{self.object.id}-{self.object.name}"
+        context['disqus_url'] = f"{settings.DISQUS_MY_DOMAIN}{self.object.get_absolute_url()}"
+        context['disqus_title'] = f"{self.object.name}"
+        return context
+
+
+def product_detail(request, id):
+    product = get_object_or_404(Product, id=id)
+    cart_product_form = CartAddProductForm()
+    context = {
+        'product': product,
+        'cart_product_form': cart_product_form
+    }
+    return render(request, 'gachon_flea/Product_detail_add_cart.html', context)
+
+
+def product_list(request, category_slug=None):
+    category = None
+    categories = Category.objects.all()
+    # products = Product.objects.filter(available=True)
+    products = Product.objects.filter
+
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = Product.objects.filter(category=category)
+
+    context = {
+        'category': category,
+        'categories': categories,
+        'products': products
+    }
+    return render(request, 'gachon_flea/main.html', context)
+
+
 
 class ProductBuy(ListView): # 상품 id 기준으로 구매하는 화면 (결제)
     template_name = 'gachon_flea/Product_buy.html'

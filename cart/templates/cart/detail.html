@@ -4,6 +4,41 @@
 
 
 {% block content %}
+{% block extra-style %}{% endblock %}
+<style>
+        .form-side{/*폼을 왼쪽정렬시킴*/
+            float:left;
+        }
+    .side {/* button side정렬*/
+        width:50;
+        margin : 0 auto;
+    float:left;
+    display: inline;
+    vertical-align: middle;
+    height: 30%;
+    float:none! important;
+    }
+
+#side-bar{ /* 버튼 속성*/
+
+    margin : 20;
+    width:100px;
+    height: 50;
+}
+    </style>
+
+    <form class="form-side">
+              <a href="{% url 'gachon_flea:etc' %}" class="btn btn-outline-dark" id="side-bar">기타</a>&emsp;
+
+              <div id="side"><input type="button" id="side-bar" value="지갑 보기" onclick="{% url 'gachon_flea:etc' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="진행중인 구매" onclick="{% url 'gachon_flea:buy_ing' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="진행중인 판매" onclick="{% url 'gachon_flea:sell_ing' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="찜 목록" onclick="{% url 'gachon_flea:got' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="구매 내역" onclick="{% url 'gachon_flea:buy' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="판매 내역" onclick="{% url 'gachon_flea:sell' %}"></div>
+              <div id="side"><input type="button" id="side-bar" value="후기 확인" onclick="{% url 'gachon_flea:check_review' %}"></div>
+      </form>
+
     <div class="container">
         <div class="row" style="margin-top: 6%">
         <h2>Your Shopping Cart
@@ -25,10 +60,10 @@
                     <tr>
                         <th>Image</th>
                         <th>Product</th>
-                        <th>Quantity</th>
                         <th>Remove</th>
                         <th>Unit Price</th>
                         <th>Price</th>
+                        <th>구매하기</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,24 +71,17 @@
                     {% with product=item.product  %}
                         <tr>
                             <td>
-                                <a href="{{ product.get__absolute_url }}">
+                                <a href="{{ product.get_absolute_url }}">
                                     <img src="{% if product.img %} {{ product.img.url }} {% else %} {% static 'img/default.jpg' %} {% endif %}" alt="..." style="height: 130px; width: auto">
                                 </a>
                             </td>
                             <td>{{ product.name }}</td>
                             <td>
-                                <form action="{% url 'cart:cart_add' product.id %}" method="post">
-                                    {% csrf_token %}
-                                    {{ item.update_quantity_form.quantity }}
-                                    {{ item.update_quantity_form.update }}
-                                    <input type="submit" value="Update" class="btn btn-info">
-                                </form>
-                            </td>
-                            <td>
                                 <a href="{% url 'cart:cart_remove' product.id %}">Remove</a>
                             </td>
                             <td>kshs. {{ item.price }}</td>
                             <td>kshs. {{ item.total_price }}</td>
+                            <td><a href="{% url 'gachon_flea:index' %}" class="btn btn-dark">구매하기</a></td>
                         </tr>
                     {% endwith %}
                 {% endfor %}
@@ -65,8 +93,7 @@
                 </tbody>
             </table>
         <p class="text-right">
-            <a href="{% url 'gachon_flea:product_list' %}" class="btn btn-default">Continue Shopping</a>
-            <a href="" class="btn btn-primary">Checkout</a>
+            <a href="{% url 'gachon_flea:index' %}" class="btn btn-outline-dark">쇼핑 계속하기</a>
         </p>
         </div>
     </div>
