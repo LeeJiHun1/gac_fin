@@ -44,7 +44,7 @@
             </div>
             <div><br><br>
                 <h5>판매자 정보</h5>
-                <img src="like.png">{{obeject.owner.profile.good }}  <img src="dislike.png"> {{ obeject.owner.profile.bad }}
+                 <img src="{% static 'img/like.png' %}" >{{obeject.owner.profile.good }}  <img src="{% static 'img/dislike.png' %}"> {{ obeject.owner.profile.bad }}
             </div>
 
                 <a href="{% url 'gachon_flea:add_cart' product.id %}">
