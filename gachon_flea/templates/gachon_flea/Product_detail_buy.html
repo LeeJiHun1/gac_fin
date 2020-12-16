@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+
+{% load static %}
+
+{%block title%}Product_detail_buy.html{%endblock%}
+
+{%block content%}
+<br><br><br>
+<div align="center">
+    <h3>'{{ product.name }}'을(를) 구매하시겠습니까?</h3><br>
+    <h4>구매하기 버튼을 누른 후 마이페이지의 진행중인 구매 항목의 '구매 확정' 버튼을 눌러주세요</h4>
+    <form action="{% url 'cart:cart_add' product.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ cart_product_form }} <br>
+        <input type="submit" value="구매하기" class="btn btn-primary">
+    </form>
+</div>
+
+{%endblock%}
