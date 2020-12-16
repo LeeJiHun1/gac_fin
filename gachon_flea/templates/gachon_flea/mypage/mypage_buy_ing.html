@@ -1,11 +1,10 @@
-<html lang="kor" xmlns:ng="http://angularjs.org" id="ng-app" ng-app="DiagApp">
-    <head>
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.css" rel="stylesheet"/>
-        <link href="ng-table.min.css" rel="stylesheet"/>
-        <link rel="stylesheet" href="style.css">
-      </head>
-    <meta charset="utf-8">
-    <title>Table 정렬</title>
+{%extends "base.html"%}
+
+{% load static %}
+
+{%block title%}mypage.html{%endblock%}
+
+{%block content%}
     <style>
         .form-side{/*폼을 왼쪽정렬시킴*/
             float:left;
@@ -47,8 +46,6 @@
         border: 1px solid #bcbcbc;
       }
     </style>
-  </head>
-  <body>
       <form class="form-side">
           <a href="{% url 'gachon_flea:wallet' %}">
               <div id="side"><input type="button" id="side-bar" value="지갑 보기"></div>
@@ -59,7 +56,7 @@
           <a href="{% url 'gachon_flea:sell_ing' %}">
               <div id="side"><input type="button" id="side-bar" value="진행중인 판매"></div>
           </a>
-          <a href="{% url 'gachon_flea:got' %}">
+          <a href="{% url 'cart:cart_detail' %}">
                <div id="side"><input type="button" id="side-bar" value="찜 목록"></div>
           </a>
           <a href="{% url 'gachon_flea:check_review' %}">
@@ -108,5 +105,4 @@
       {%endfor%}
       </tbody>
     </table>
-  </body>
-</html>
+{% endblock %}

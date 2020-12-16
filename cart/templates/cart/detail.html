@@ -28,15 +28,21 @@
     </style>
 
     <form class="form-side">
-              <a href="{% url 'gachon_flea:etc' %}" class="btn btn-outline-dark" id="side-bar">기타</a>&emsp;
-
-              <div id="side"><input type="button" id="side-bar" value="지갑 보기" onclick="{% url 'gachon_flea:etc' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="진행중인 구매" onclick="{% url 'gachon_flea:buy_ing' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="진행중인 판매" onclick="{% url 'gachon_flea:sell_ing' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="찜 목록" onclick="{% url 'gachon_flea:got' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="구매 내역" onclick="{% url 'gachon_flea:buy' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="판매 내역" onclick="{% url 'gachon_flea:sell' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="후기 확인" onclick="{% url 'gachon_flea:check_review' %}"></div>
+          <a href="{% url 'gachon_flea:wallet' %}">
+              <div id="side"><input type="button" id="side-bar" value="지갑 보기"></div>
+          </a>
+          <a href="{% url 'gachon_flea:buy_ing' %}">
+              <div id="side"><input type="button" id="side-bar" value="진행중인 구매"></div>
+          </a>
+          <a href="{% url 'gachon_flea:sell_ing' %}">
+              <div id="side"><input type="button" id="side-bar" value="진행중인 판매"></div>
+          </a>
+          <a href="{% url 'cart:cart_detail' %}">
+               <div id="side"><input type="button" id="side-bar" value="찜 목록"></div>
+          </a>
+          <a href="{% url 'gachon_flea:check_review' %}">
+              <div id="side"><input type="button" id="side-bar" value="후기 확인"></div>
+          </a>
       </form>
 
     <div class="container">
