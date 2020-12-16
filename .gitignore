@@ -1,3 +1,6 @@
 
 gachon_flea/.DS_Store
 .DS_Store
+mysite/settings.py
+db.sqlite3
+db.sqlite3
