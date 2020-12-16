@@ -2,7 +2,21 @@
 {%load widget_tweaks%}
 {%block title%}photo_form.html{%endblock%}
 {%block content%}
-    <form enctype="multipart/form-data"action=""method="post"class="card pt-0">
+<head>
+<style>
+  .btn  {
+    background: #32AAFF;
+    color: white;
+    font-weight: bold;
+    border-radius: 1px;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: gray;
+  }
+  </style>
+</head>
+    <form enctype="multipart/form-data"action=""method="post">
     {%csrf_token%}
     <div class = "form-group row">
         상품 사진 :
