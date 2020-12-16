@@ -14,156 +14,142 @@
 
 <style>
 
-   *:focus { outline:none; }
-   .search_window {
-      display: inline-block;
-     position: relative;
-      width: 500px; height: 50px;
-      border: 2px solid #32AAFF;
-      background: white;
-       font-size: 30px;
-      font-weight: bold;
-      border-radius: 1px;
-   }
-   
-   .searchbtn {
-      display: inline-block;
-     position: relative;
-      width: 150px; height: 50px;
-       border: 0;
-      background: #32AAFF;
-      color: white;
-       font-size: 30px;
-      font-weight: bold;
-      border-radius: 1px;
-      cursor: pointer;
-   }
-   .loginbtn {
-      display: inline-block;
-     position: relative;
-      width: 100px; height: 30px;
-       border: 0;
-      background: #32AAFF;
-      color: white;
-       font-size: 20px;
-      font-weight: bold;
-      border-radius: 1px;
-      cursor: pointer;
-   }
-   .logoutbtn {
-      display: inline-block;
-     position: relative;
-      width: 100px; height: 30px;
-       border: 0;                 /*로그아웃 로그인 크기 고려하여 transform 조절*/
-      background: #32AAFF;
-      color: white;
-       font-size: 20px;
-      font-weight: bold;
-      border-radius: 1px;
-      cursor: pointer;
-   }
-   .registerbtn {
-      display: inline-block;
-     position: relative;
-      width: 100px; height: 30px;
-       border: 0;                 /*로그아웃 로그인 크기 고려하여 transform 조절*/
-      background: #32AAFF;
-      color: white;
-       font-size: 20px;
-      font-weight: bold;
-      border-radius: 1px;
-      cursor: pointer;
-   }
-   .mypagebtn {
-      display: inline-block;
-     position: relative;
-      width: 120px; height: 30px;
-       border: 0;                 /*로그아웃 로그인 크기 고려하여 transform 조절*/ 
-      background: #32AAFF;
-      color: white;
-       font-size: 20px;
-      font-weight: bold;
-      border-radius: 1px;
-      cursor: pointer;
-   }
-   .addbtn {
-      display: inline-block;
-     position: relative;
-      width: 100px; height: 30px;
-       border: 0;                 /*로그아웃 로그인 크기 고려하여 transform 조절*/
-      background: #32AAFF;
-      color: white;
-       font-size: 20px;
-      font-weight: bold;
-      border-radius: 1px;
-      cursor: pointer;
-   }
-   .nonmemberbtn {
-      display: inline-block;
-     position: relative;
-      width: 100px; height: 30px;
-      background: #32AAFF;
-      color: white;
-       font-size: 20px;
-      font-weight: bold;
-      border-radius: 1px;
-      cursor: pointer;
-   }
-   .memberbtn {
-      display: inline-block;
-     position: relative;
-      width: 120px; height: 30px;
-       border:0;
-      background: #32AAFF;
-      color: white;
-       font-size: 20px;
-      font-weight: bold;
-      border-radius: 1px;
-      cursor: pointer;
-   }
-   .topbar{
-      display: flex;
-      position :relative;
-      width:1800px;
-      justify-content:center;
-      align-items:center; 
-      object-position : "middle";
-   }
-   .bar4{
-      display : inline-block;
-      margin :10px;
-      justify-content:center; align-items:center;
-   }
-   .searchbtn:hover {
-      background: gray;
-   }
-   .logoutbtn:hover {
-      background: gray;
-   }
-   .loginbtn:hover {
-      background: gray;
-   }
-   .addbtn:hover {
-      background: gray;
-   }
-   .nonmemberbtn:hover {
-      background: gray;
-   }
-   .memberbtn:hover {
-      background: gray;
-   }
-   .mypagebtn:hover {
-      background: gray;
-   }
-   .registerbtn:hover {
-      background: gray;
-   }
-   
-   a { color: white; }
-   
-   a:hover {text-decoration: none;
-   color:white; }
-   </style>
+*:focus { outline:none; }
+.search_window {
+   width: 500px; height: 50px;
+   border: 2px solid #32AAFF;
+    transform: translate(100%, -200%);  /*좌우 위치, 상하 위치 조절코드*/
+   background: white;
+    font-size: 30px;
+   font-weight: bold;
+   border-radius: 1px;
+}
+.searchbtn {
+    margin-left:-3px;
+   width: 80px; height: 50px;
+    border: 0;
+    transform: translate(630%, -201%);  /*좌우 위치, 상하 위치 조절코드*/
+   background: #32AAFF;
+   color: white;
+    font-size: 30px;
+   font-weight: bold;
+   border-radius: 1px;
+   cursor: pointer;
+}
+.loginbtn {
+    margin-left:-3px;
+   width: 150px; height: 50px;
+    border: 0;
+    transform: translate(620%, -201%);  /*좌우 위치, 상하 위치 조절코드*/
+   background: #32AAFF;
+   color: white;
+    font-size: 30px;
+   font-weight: bold;
+   border-radius: 1px;
+   cursor: pointer;
+}
+.logoutbtn {
+    margin-left:-3px;
+   width: 150px; height: 50px;
+    border: 0;                 /*로그아웃 로그인 크기 고려하여 transform 조절*/
+    transform: translate(270%, -201%);  /*좌우 위치, 상하 위치 조절코드*/
+   background: #32AAFF;
+   color: red;
+    font-size: 30px;
+   font-weight: bold;
+   border-radius: 1px;
+   cursor: pointer;
+}
+.registerbtn {
+    margin-left:-3px;
+   width: 150px; height: 50px;
+    border: 0;                 /*로그아웃 로그인 크기 고려하여 transform 조절*/
+    transform: translate(670%, -201%);  /*좌우 위치, 상하 위치 조절코드*/
+   background: #32AAFF;
+   color: white;
+    font-size: 30px;
+   font-weight: bold;
+   border-radius: 1px;
+   cursor: pointer;
+}
+.mypagebtn {
+    margin-left:-3px;
+   width: 180px; height: 50px;
+    border: 0;                 /*로그아웃 로그인 크기 고려하여 transform 조절*/
+    transform: translate(240%, -201%);  /*좌우 위치, 상하 위치 조절코드*/
+   background: #32AAFF;
+   color: white;
+    font-size: 30px;
+   font-weight: bold;
+   border-radius: 1px;
+   cursor: pointer;
+}
+.addbtn {
+    margin-left:-3px;
+   width: 150px; height: 50px;
+    border: 0;                 /*로그아웃 로그인 크기 고려하여 transform 조절*/
+    transform: translate(320%, -201%);  /*좌우 위치, 상하 위치 조절코드*/
+   background: #32AAFF;
+   color: white;
+    font-size: 30px;
+   font-weight: bold;
+   border-radius: 1px;
+   cursor: pointer;
+}
+.nonmemberbtn {
+    margin-left:-3px;
+   width: 150px; height: 50px;
+    border: 0;
+    transform: translate(630%, -201%);  /*좌우 위치, 상하 위치 조절코드*/
+   background: #32AAFF;
+   color: white;
+    font-size: 30px;
+   font-weight: bold;
+   border-radius: 1px;
+   cursor: pointer;
+}
+.memberbtn {
+    margin-left:-3px;
+   width: 150px; height: 50px;
+    border: 0;
+    transform: translate(770%, -201%);
+   background: #32AAFF;
+   color: white;
+    font-size: 30px;
+   font-weight: bold;
+   border-radius: 1px;
+   cursor: pointer;
+}
+.searchbtn:hover {
+   background: gray;
+}
+.logoutbtn:hover {
+   background: gray;
+}
+.loginbtn:hover {
+   background: gray;
+}
+.addbtn:hover {
+   background: gray;
+}
+.nonmemberbtn:hover {
+   background: gray;
+}
+.memberbtn:hover {
+   background: gray;
+}
+.mypagebtn:hover {
+   background: gray;
+}
+.registerbtn:hover {
+   background: gray;
+}
+
+a { color: white; }
+
+a:hover {text-decoration: none;
+color:white; }
+</style>
 {% block aaaa %}
 {% endblock %}
 <a href="{% url 'gachon_flea:index' %}">
@@ -171,22 +157,19 @@
 </a>
 <!--검색창-->
 <form action="/gachon/search/" method="post"> {% csrf_token %}
-   <div class="topbar">
         <input class='search_window' type="search" placeholder="검색어 입력" name="search_word">
         <button type='submit' class='searchbtn'>검색</button>
         {% if user.is_active %}
-        <div class="bar4">
-        <button type="button" class="memberbtn">{% firstof user.get_short_name user.get_username %}님</button></form>
+        <button type="button" class="memberbtn">{% firstof user.get_short_name user.get_username %}</button></form>
         <a href="{% url 'gachon_flea:logout' %}" style="color:#fff;"><button type="button"  class="logoutbtn" > 로그아웃</button></a>
          <a href="{% url 'gachon_flea:mypage' %}"  style="color:#fff;"><button type="button" class="mypagebtn">마이페이지</button></a>
-         <a href="{% url 'gachon_flea:add' %}" style="color:#fff;"><button type="button" class="addbtn">    상품등록</button></a>
-      </div>{%else%}
-      <div class="bar4"> <!--<button type='submit' class='nonmemberbtn'>비회원</button>-->
-         <a href="{% url 'gachon_flea:login' %}" ><button type="button" class="loginbtn"> 로그인</button></a>
+        <a href="{% url 'gachon_flea:add' %}" style="color:#fff;"><button type="button" class="addbtn">    상품등록</button></a>
+        {%else%}
+        <!--<button type='submit' class='nonmemberbtn'>비회원</button>-->
+        <a href="{% url 'gachon_flea:login' %}" ><button type="button" class="loginbtn"> 로그인</button></a>
          <a href="{% url 'gachon_flea:signup' %}"><button type="button" class="registerbtn">회원가입</button></a>
-        {% endif %}</div>
-      
-      </div>
+        {% endif %}
+
 </form>
 
 <div class="container">
