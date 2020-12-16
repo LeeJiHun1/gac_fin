@@ -14,73 +14,35 @@
 
 <style>
 .search_window {
-    top:15%;
-    left: 40%;
 	display: inline-block;
-	width: 800px; height: 65px;
-	border: 2px solid #32AAFF;
+	width: 330px; height: 35px;
+	border: 3px solid #32AAFF;
 	background: white;
 }
 .input_text {
-    top:15%;
-    border:0px;
-	width: 390px; height: 100%;
-	line-height: 20px;
+	width: 330px; height: 35px;
+	line-height: 18px;
 	font-weight: bold;
-	font-size: 30px;
+	font-size: 16px;
 	outline: none;
 }
 .searchbtn {
-    margin-left:-3px;
-	width: 80px; height: 100%;
+	width: 54px; height: 40px;
     margin: 0 auto; border: 0;
 	vertical-align: top;
 	background: #32AAFF;
 	color: white;
-    font-size: 30px;
 	font-weight: bold;
 	border-radius: 1px;
 	cursor: pointer;
 }
-.addbtn {
-    margin-left:-3px;
-	width: 143px; height: 100%;
-    margin: 0 auto; border: 0;
-	vertical-align: top;
-	background: #32AAFF;
-	color: white;
-    font-size: 30px;
-	font-weight: bold;
-	border-radius: 1px;
-	cursor: pointer;
-}
-.mypagebtn {
-    float:right;
-	width: 170px; height: 100%;
-    margin: 0 auto; border: 0;
-	vertical-align: top;
-	background: #32AAFF;
-	color: white;
-    font-size: 30px;
-	font-weight: bold;
-	border-radius: 1px;
-	cursor: pointer;
-}
-
 .searchbtn:hover {
 	background: gray;
 }
-.addbtn:hover {
-	background: gray;
-}
-.mypagebtn:hover {
-	background: gray;
-}
-.searchdiv{ 
-    border:0;
+.searchdiv{
     display:inline-block;
-    width:100%;
-    height:60px;
+    width:389px;
+    height:35px;
 }
 
 </style>
@@ -89,13 +51,10 @@
 <a href="{% url 'gachon_flea:index' %}">
     <img src="/static/img/gachon.jpg" alt="gachon">
 </a>
-<!--검색창--> 
+<!--검색창-->
 <form class='search_window' action="/gachon/search/" method="post"> {% csrf_token %}
     <div class="searchdiv"><input class='input_text' type="search" placeholder="검색어 입력" name="search_word">
-        <button type='submit' class='searchbtn'>검색</button>
-       <button type='submit' class='mypagebtn'>마이페이지</button>
-        <button type='submit' class='addbtn'>상품등록</button>
-    </div> 
+        <button type='submit' class='searchbtn'>검색</button></div>   
 </form>
 
 
