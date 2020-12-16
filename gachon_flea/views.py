@@ -555,7 +555,7 @@ def add_buy_list(request, pk):
     pid = get_object_or_404(Product, id=pk)
     ViewBuyList.objects.create(owner=request.user, product_id = pid)
     print("--------------------------------")
-    return render(request, 'gachon_flea/product_detail_buy.html')
+    return render(request, 'complete/complete2.html')
 
 
 

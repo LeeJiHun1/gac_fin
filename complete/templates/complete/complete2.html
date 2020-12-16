@@ -1,0 +1,10 @@
+{%extends "base.html"%}
+
+{% load static %}
+{%block title%}마이페이지{%endblock%}
+{% block content %}
+
+    <p style="color:black;">구매 진행중입니다. 상품 거래 후에 마이페이지 -> 구매목록 -> 구매확정을 통해 거래를 완료하시길 바랍니다.</p>
+
+    <a href="{% url 'gachon_flea:buy_ing' %}" style="color:blue;">구매목록으로 가기</a>
+{% endblock %}
