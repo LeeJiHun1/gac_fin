@@ -257,6 +257,13 @@ class sell_ing(LoginRequiredMixin, ListView): # 판매 목록
     def get_queryset(self):
         return Product.objects.filter(owner=self.request.user)
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["Product"] = Product.objects.all()
+        context["balance"] = checkbal(self.request.user.profile.wallet)
+        print(context)
+        return context
+
 class got(LoginRequiredMixin, ListView): # 찜 목록
     template_name = 'gachon_flea/mypage/mypage_got.html'
 

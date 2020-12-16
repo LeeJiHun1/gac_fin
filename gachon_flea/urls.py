@@ -6,7 +6,7 @@ app_name = 'gachon_flea'
 urlpatterns = [
     path('', views.MainLV.as_view(), name='index'),  # 메인페이지
 
-    path('mypage/', views.Mypage.as_view(), name='mypage'),  # 마이페이지
+    path('mypage/', views.buy_ing.as_view(), name='mypage'),  # 마이페이지
 
     path('search/', views.SearchFormView.as_view(), name='search'),  # 검색 결과 화면
 
