@@ -1,5 +1,5 @@
 import json
-#import requests
+import requests
 from django.contrib import auth
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -30,13 +30,14 @@ from .tokens import account_activation_token
 
 from django.conf import settings
 
+
 def exchangecurl(wallet, money):
     headers = {
         'Authorization': 'Bearer EPeknyLprhWaGvpmsWrvCQgdLbpXVsNyRM9EzCn53Dh5uH2AxSPMZFvcQtMDd1rH',
         'Content-Type': 'application/json'
     }
 
-    body = {'inputs': {"receiverAddress": "0x1da6551a7d0ede0e9069b1a2321e4a90a948292e", 'valueAmount': money}}
+    body = {'inputs': {"receiverAddress": wallet, 'valueAmount': money}}
 
     response = requests.post('https://api.luniverse.io/tx/v1.1/transactions/Reward2', data=json.dumps(body),
                              headers=headers)
@@ -50,7 +51,7 @@ def chargecurl(wallet, money):
         'Content-Type': 'application/json'
     }
 
-    body = {'from': '0x1da6551a7d0ede0e9069b1a2321e4a90a948292e', 'inputs': {'valueAmount': money }}
+    body = {'from': wallet, 'inputs': {'valueAmount': money }}
 
     response = requests.post('https://api.luniverse.io/tx/v1.1/transactions/Support', data=json.dumps(body),
                              headers=headers)
@@ -71,7 +72,22 @@ def checkbal(wallet):
     print(a)
     return a
 
+def getwallet(username):
+    headers = {
+        'Authorization': 'Bearer EPeknyLprhWaGvpmsWrvCQgdLbpXVsNyRM9EzCn53Dh5uH2AxSPMZFvcQtMDd1rH',
+        'Content-Type': 'application/json'
+    }
 
+    body = {'walletType': 'LUNIVERSE', 'userKey': 'asdkjfklaj'}
+
+    response = requests.post('https://api.luniverse.io/tx/v1.1/wallets', data=json.dumps(body),
+                             headers=headers)
+    print(response.content)
+    str = response.content.decode("utf-8")
+    my_json = json.loads(str)
+    a = json.dumps(my_json['data']['address'])
+    print(a)
+    return a
 
 class MainLV(ListView): # 메인페이지
     model = Product
@@ -261,7 +277,9 @@ def signup(request):
                 user.is_active = False
                 user.save()
                 number = request.POST["number"]
-                profile = Profile(user=user, number=number)
+                wallet = getwallet(request.POST["email"])
+                wallet2 = wallet[1:43]
+                profile = Profile(user=user, number=number, wallet=wallet2)
 
 
 
