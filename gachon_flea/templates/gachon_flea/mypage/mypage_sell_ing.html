@@ -50,34 +50,59 @@
   </head>
   <body>
       <form class="form-side">
-              <a href="{% url 'gachon_flea:etc' %}" class="btn btn-outline-dark" id="side-bar">기타</a>&emsp;
+          <a href="{% url 'gachon_flea:wallet' %}">
+              <div id="side"><input type="button" id="side-bar" value="지갑 보기"></div>
+          </a>
+          <a href="{% url 'gachon_flea:buy_ing' %}">
+              <div id="side"><input type="button" id="side-bar" value="진행중인 구매"></div>
+          </a>
+          <a href="{% url 'gachon_flea:sell_ing' %}">
+              <div id="side"><input type="button" id="side-bar" value="진행중인 판매"></div>
+          </a>
+          <a href="{% url 'gachon_flea:got' %}">
+               <div id="side"><input type="button" id="side-bar" value="찜 목록"></div>
+          </a>
+          <a href="{% url 'gachon_flea:check_review' %}">
+              <div id="side"><input type="button" id="side-bar" value="후기 확인"></div>
+          </a>
 
-              <div id="side"><input type="button" id="side-bar" value="지갑 보기" redirect="{% url 'gachon_flea:etc' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="진행중인 구매" redirect="{% url 'gachon_flea:buy_ing' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="진행중인 판매" redirect="{% url 'gachon_flea:sell_ing' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="찜 목록" redirect="{% url 'cart:cart_detail' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="구매 내역" redirect="{% url 'gachon_flea:buy' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="판매 내역" redirect="{% url 'gachon_flea:sell' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="후기 확인" redirect="{% url 'gachon_flea:check_review' %}"></div>
+
       </form>
     <table border="0">
       <thead>
         <tr>
             <th scope="row", rowspan="2">가천월렛(지갑아이콘 넣고)<br/><!-- 지갑보기 -->
-                잔액 : 999999원(data)</th>
+                잔액 : {{ balance }} 원 입니다.</th>
         </tr>
       </thead>
       <tbody>
       <tr>
           <th>
-              진행중인 판매 목록입니다.
+              판매 중인 품목입니다.
           </th>
       </tr>
-        {% for cart in object_list %}
-
-                <tr>
-                    <th><li>{{ cart.product_id.name }}</li></th>
-                </tr>
+        {% for product in object_list %}
+      {% if product.sell == False %}
+      <tr>
+      <th>
+            {{ product.name }}
+          </th>
+      </tr>
+      {% endif %}
+        {%endfor%}
+      <tr>
+          <th>
+              판매 완료된 품목입니다.
+          </th>
+      </tr>
+        {% for product in object_list %}
+      {% if product.sell == True %}
+      <tr>
+      <th>
+            {{ product.name }}
+          </th>
+      </tr>
+      {% endif %}
         {%endfor%}
       </tbody>
     </table>

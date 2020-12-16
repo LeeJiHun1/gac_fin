@@ -50,15 +50,21 @@
   </head>
   <body>
       <form class="form-side">
-              <a href="{% url 'gachon_flea:etc' %}" class="btn btn-outline-dark" id="side-bar">기타</a>&emsp;
-
-              <div id="side"><input type="button" id="side-bar" value="지갑 보기" onclick="{% url 'gachon_flea:etc' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="진행중인 구매" onclick="{% url 'gachon_flea:buy_ing' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="진행중인 판매" onclick="{% url 'gachon_flea:sell_ing' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="찜 목록" onclick="{% url 'cart:cart_detail' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="구매 내역" onclick="{% url 'gachon_flea:buy' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="판매 내역" onclick="{% url 'gachon_flea:sell' %}"></div>
-              <div id="side"><input type="button" id="side-bar" value="후기 확인" onclick="{% url 'gachon_flea:check_review' %}"></div>
+          <a href="{% url 'gachon_flea:wallet' %}">
+              <div id="side"><input type="button" id="side-bar" value="지갑 보기"></div>
+          </a>
+          <a href="{% url 'gachon_flea:buy_ing' %}">
+              <div id="side"><input type="button" id="side-bar" value="진행중인 구매"></div>
+          </a>
+          <a href="{% url 'gachon_flea:sell_ing' %}">
+              <div id="side"><input type="button" id="side-bar" value="진행중인 판매"></div>
+          </a>
+          <a href="{% url 'gachon_flea:got' %}">
+               <div id="side"><input type="button" id="side-bar" value="찜 목록"></div>
+          </a>
+          <a href="{% url 'gachon_flea:check_review' %}">
+              <div id="side"><input type="button" id="side-bar" value="후기 확인"></div>
+          </a>
       </form>
     <table border="0">
       <thead>
@@ -73,12 +79,32 @@
               진행중인 구매 목록입니다.
           </th>
       </tr>
-        {% for cart in object_list %}
-
+        {% for product in object_list %}
+                    {% if product.product_id.sell == False %}
                 <tr>
-                    <th><li>{{ cart.product_id.name }}</li></th>
+                    <th><li>{{ product.product_id.name }}</li>
+                    <form method="POST" action="{% url 'gachon_flea:confirm_buy' product.product_id.id %}">
+                    {% csrf_token %}
+                        <button type="submit">구매 확정</button>
+                    </form>
+                    </th>
                 </tr>
-        {%endfor%}
+             {% endif %}
+      {%endfor%}
+      <tr>
+          <th>
+              구매 완료한 목록입니다.
+          </th>
+      </tr>
+            {% for product in object_list %}
+                    {% if product.product_id.sell == True %}
+                <tr>
+                    <th><li>{{ product.product_id.name }}</li>
+
+                    </th>
+                </tr>
+             {% endif %}
+      {%endfor%}
       </tbody>
     </table>
   </body>
