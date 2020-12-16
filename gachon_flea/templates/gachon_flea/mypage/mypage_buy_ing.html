@@ -74,9 +74,12 @@
           </th>
       </tr>
         {% for cart in object_list %}
+                {% csrf_token %}
 
                 <tr>
-                    <th><li>{{ cart.product_id.name }}</li></th>
+                    <th><li>{{ cart.product_id.name }}</li> <form method="POST" action="{% url 'gachon_flea:confirm_buy' cart.product_id.id %}">
+                        <button type="submit">구매 확정</button>
+                    </form></th>
                 </tr>
         {%endfor%}
       </tbody>

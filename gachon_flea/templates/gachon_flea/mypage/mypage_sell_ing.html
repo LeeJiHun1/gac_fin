@@ -70,11 +70,31 @@
       <tbody>
       <tr>
           <th>
-              진행중인 판매 목록입니다.
+              판매 중인 품목입니다.
           </th>
       </tr>
         {% for product in object_list %}
+      {% if product.sell == False %}
+      <tr>
+      <th>
             {{ product.name }}
+          </th>
+      </tr>
+      {% endif %}
+        {%endfor%}
+      <tr>
+          <th>
+              판매 완료된 품목입니다.
+          </th>
+      </tr>
+        {% for product in object_list %}
+      {% if product.sell == True %}
+      <tr>
+      <th>
+            {{ product.name }}
+          </th>
+      </tr>
+      {% endif %}
         {%endfor%}
       </tbody>
     </table>

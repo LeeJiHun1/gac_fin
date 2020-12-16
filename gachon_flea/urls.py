@@ -46,14 +46,14 @@ urlpatterns = [
     path('logout/', views.logout, name='logout'),
     path('activate/<str:uid64>/<str:token>/', views.activate, name="activate"),
 
-    path('confirm/buy/<int:pk>', views.confirm_buy.as_view(), name='confirm_buy'),
+    path('confirm/buy/<int:pk>', views.confirm_buy, name='confirm_buy'),
     path('cancel/got/<int:pk>', views.cancel_cart.as_view(), name='cancel_got'),
     path('confirm/make_review/<int:pk>', views.make_review.as_view(), name='make_review'),
 
     path('charge/', views.charge, name='charge'),
     path('exchange/', views.exchange, name='exchange'),
     
-        url(r'^$', views.product_list, name='product_list'),
+    url(r'^$', views.product_list, name='product_list'),
     url(r'^(?P<category_slug>[-\w]+)/$', views.product_list, name='product_list_by_category'),
     url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.PostDV.as_view(), name='detail'),
 

@@ -30,6 +30,18 @@ from .tokens import account_activation_token
 
 from django.conf import settings
 
+def transfercurl(sender, reciever, money):
+    headers = {
+        'Authorization': 'Bearer EPeknyLprhWaGvpmsWrvCQgdLbpXVsNyRM9EzCn53Dh5uH2AxSPMZFvcQtMDd1rH',
+        'Content-Type': 'application/json'
+    }
+
+    body = {'from': sender, 'inputs': {"receiverAddress": reciever,'valueAmount': money}}
+
+    response = requests.post('https://api.luniverse.io/tx/v1.1/transactions/transfer', data=json.dumps(body),
+                             headers=headers)
+    print(response.content)
+
 
 def exchangecurl(wallet, money):
     headers = {
@@ -184,6 +196,7 @@ class mywallet(ListView):
         context["Cart"] = {'Cart' : Cart}
         context["balance"] = checkbal(self.request.user.profile.wallet)
         return context
+
 class buy_ing(LoginRequiredMixin, ListView): #진행 중인 구매
     model = ViewBuyList
     template_name = 'gachon_flea/mypage/mypage_buy_ing.html'
@@ -197,6 +210,7 @@ class sell_ing(LoginRequiredMixin, ListView): # 진행 중인 판매
 
 class got(LoginRequiredMixin, ListView): # 찜 목록
     template_name = 'gachon_flea/mypage/mypage_got.html'
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
@@ -459,3 +473,19 @@ class modify_review(OwnerOnlyMixin, UpdateView): # 후기 수정
 class delete_review(LoginRequiredMixin, DeleteView): # 후기 삭제
     model = Review
     success_url = reverse_lazy('gachon_flea:check_review')
+
+
+def confirm_buy(request):
+    if request["POST"]:
+        sender = request.user.wallet
+        product_id = request["POST"]
+        product = Product(id=product_id)
+        reciever = product.owner.profile.wallet
+        transfercurl(sender, reciever, product.price)
+
+        print("succes")
+    return HttpResponse('비정상적인 접근입니다.')
+
+
+
+
