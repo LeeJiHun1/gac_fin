@@ -254,6 +254,13 @@ class sell_ing(LoginRequiredMixin, ListView): # 판매 목록
     model = Product
     template_name = 'gachon_flea/mypage/mypage_sell_ing.html'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["Product"] = Product.objects.all()
+        context["balance"] = checkbal(self.request.user.profile.wallet)
+        print(context)
+        return context
+
     def get_queryset(self):
         return Product.objects.filter(owner=self.request.user)
 
@@ -415,7 +422,7 @@ def activate(request, uid64, token):
 def exchange(request):
     if request.method == "POST":
         money = request.POST['money']
-        wallet = request.user.wallet
+        wallet = request.user.profile.wallet
      #   wallet = '0x1da6551a7d0ede0e9069b1a2321e4a90a948292e'
         exchangecurl(wallet, money)
         return HttpResponse('<alert>환급되었습니다.</alert>')
@@ -426,7 +433,7 @@ def exchange(request):
 def charge(request):
     if request.method == "POST":
         money = request.POST['money']
-        wallet = request.user.wallet
+        wallet = request.user.profile.wallet
       #  wallet = '0x1da6551a7d0ede0e9069b1a2321e4a90a948292e'
         chargecurl(wallet, money)
 
@@ -511,16 +518,31 @@ class delete_review(LoginRequiredMixin, DeleteView): # 후기 삭제
     success_url = reverse_lazy('gachon_flea:check_review')
 
 
-def confirm_buy(request):
-    if request["POST"]:
-        sender = request.user.wallet
-        product_id = request["POST"]
-        product = Product(id=product_id)
-        reciever = product.owner.profile.wallet
-        transfercurl(sender, reciever, product.price)
 
-        print("succes")
+def confirm_buy(request, pk):
+    if request.method == "POST":
+        sender = request.user.profile.wallet
+
+        pid = get_object_or_404(Product, id=pk)
+        bal = checkbal(sender)
+        inbal = int(bal.replace('"', '', 2))
+        if inbal > int(pid.price): #돈이 충분하면 그냥 결제
+
+            print(pid.owner.profile.wallet)
+
+            reciever = pid.owner.profile.wallet
+            transfercurl(sender, reciever, int(pid.price))
+
+            pid.sell = True
+            pid.save()
+
+            print("succes")
+            return render(request, 'complete/complete.html')
+        else:
+            return render(request, 'gachon_flea/after_mypage/charge.html')
+
     return HttpResponse('비정상적인 접근입니다.')
+
 
 
 

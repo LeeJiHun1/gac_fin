@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'six',
     'cart.apps.CartConfig',
-
+    'complete.apps.CompleteConfig',
 ]
 
 MIDDLEWARE = [

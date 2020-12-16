@@ -25,4 +25,5 @@ urlpatterns = [
 
     path('gachon/', include('gachon_flea.urls')),
     path('cart/', include('cart.urls')),
+    path('complete/', include('complete.urls'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

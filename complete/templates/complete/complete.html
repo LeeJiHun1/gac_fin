@@ -1,0 +1,10 @@
+{%extends "base.html"%}
+
+{% load static %}
+{%block title%}마이페이지{%endblock%}
+{% block content %}
+
+    <p style="color:black;">구매 완료했습니다.</p>
+
+    <a href="{% url 'gachon_flea:buy_ing' %}" style="color:blue;">마이 페이지로 돌아가기</a>
+{% endblock %}

@@ -59,7 +59,7 @@
           <a href="{% url 'gachon_flea:sell_ing' %}">
               <div id="side"><input type="button" id="side-bar" value="진행중인 판매"></div>
           </a>
-          <a href="{% url 'cart:cart_detail' %}">
+          <a href="{% url 'gachon_flea:got' %}">
                <div id="side"><input type="button" id="side-bar" value="찜 목록"></div>
           </a>
           <a href="{% url 'gachon_flea:check_review' %}">
@@ -79,11 +79,11 @@
               진행중인 구매 목록입니다.
           </th>
       </tr>
-        {% for product in object_list %}
-                    {% if product.sell == False %}
+        {% for product in ViewBuyList %}
+                    {% if product.product_id.sell == False %}
                 <tr>
-                    <th><li>{{ product.name }}</li>
-                    <form method="POST" action="{% url 'gachon_flea:confirm_buy' product.id %}">
+                    <th><li>{{ product.product_id.name }}</li>
+                    <form method="POST" action="{% url 'gachon_flea:confirm_buy' product.product_id.id %}">
                     {% csrf_token %}
                         <button type="submit">구매 확정</button>
                     </form>
@@ -97,10 +97,10 @@
           </th>
       </tr>
 
-            {% for product in object_list %}
-                    {% if product.sell == True %}
+            {% for product in ViewBuyList %}
+                    {% if product.product_id.sell == True %}
                 <tr>
-                    <th><li>{{ product.name }}</li>
+                    <th><li>{{ product.product_id.name }}</li>
 
                     </th>
                 </tr>

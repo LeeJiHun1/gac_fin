@@ -6,7 +6,7 @@ app_name = 'gachon_flea'
 urlpatterns = [
     path('', views.MainLV.as_view(), name='index'),  # 메인페이지
 
-    path('mypage/', views.Mypage.as_view(), name='mypage'),  # 마이페이지
+    path('mypage/', views.buy_ing.as_view(), name='mypage'),  # 마이페이지
 
     path('search/', views.SearchFormView.as_view(), name='search'),  # 검색 결과 화면
 
@@ -54,7 +54,7 @@ urlpatterns = [
     url(r'^(?P<category_slug>[-\w]+)/$', views.product_list, name='product_list_by_category'),
     url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$', views.PostDV.as_view(), name='detail'),
     
-        url(r'^$', views.product_list, name='product_list'),
+    url(r'^$', views.product_list, name='product_list'),
     path('detail/add/<int:id>/', views.product_detail, name='add_cart'),
     url(r'^(?P<category_slug>[-\w]+)/$', views.product_list, name='product_list_by_category'),
 
