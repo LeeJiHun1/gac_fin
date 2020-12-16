@@ -1,54 +1,144 @@
 {%extends "base.html"%}
 
 {% load static %}
-{%block title%}마이페이지{%endblock%}
 
-<style>
-        .form-side{/*폼을 왼쪽정렬시킴*/
-            float:left;
-        }
-    .side {/* button side정렬*/
-        width:50;
-        margin : 0 auto;
-    float:left;
-    display: inline;
-    vertical-align: middle;
-    height: 30%;
-    float:none! important;
-    }
-
-#side-bar{ /* 버튼 속성*/
-
-    margin : 20;
-    width:100px;
-    height: 50;
-}
-      table, th  {
-        border-spacing: 1cm 2em;
-        border: 1px solid #bcbcbc;
-      }
-      table {
-        border-spacing: 1cm 2em;
-        border-collapse: separate;
-        margin:auto;
-        width: 70%;
-        height: 200px;
-      }
-      th{
-        padding:20px 5; /* 이 속성으로 구매확정 버튼 100%가 가득안참 */
-        text-align: left;
-      }
-      td {
-        padding:20px  0;/* 이 속성으로 구매확정 버튼 100%가 가득안참  padding 0으로 주면 가득참.*/
-        margin: auto;
-        border: 1px solid #bcbcbc;
-      }
-    </style>
+{%block title%}mypage.html{%endblock%}
 
 {%block content%}
+<style>
+    *:focus { outline:none; }
+input.img-button {
+    float:left;
+    background: url( "logo.jpg" ) no-repeat;
+    width: 120px;
+    height: 80px;
+    cursor: pointer;
+    margin: 0 auto;
+    border: 0;
+      }
 
 
-      <form class="form-side">
+#search_window{
+    border:12px;
+    left:25%;
+    position:absolute;
+    padding:1px 2px;
+    display:inline-block;
+    margin: 5px;
+    transform: translate(10%, -15%); /* searchBtn 제일위로 가는속성.*/
+    width:450px; height: 36px;
+}
+#search_window input{
+    float:left;
+    margin: 5px;
+    background: white;
+    font-weight: bold;
+    font-size: 30px;
+    border: 3px solid #32AAFF;
+}
+.loginNmypageBtn {/*로그인,마이페이지 CSS*/
+    float:right;
+    width: 100px; height: 40px;
+    margin: 5px; border: 0;
+    background: #32AAFF;
+    color: white;
+    font-weight: bold;
+    border-radius: 1px;
+    cursor: pointer;
+    object-position : "middle";
+}
+
+.loginNmypageBtn:hover {
+    background: #32AAFF;
+}
+.prdRegisterBtn {/*상품등록 CSS*/
+    float:right;
+    width: 100px; height: 40px;
+    margin: 5px; border: 0;
+    background: #32AAFF;
+    color: white;
+    font-weight: bold;
+    border-radius: 1px;
+    cursor: pointer;
+    object-position : "middle";
+}
+
+.prdRegisterBtn:hover {
+    background: #32AAFF;
+}
+.searchBtn {/*검색버튼 CSS*/
+    position:absolute;
+    width: 100px; height: 40px;
+    margin: 5px; border: 0;
+    background: #32AAFF;
+    color: white;
+    font-weight: bold;
+    border-radius: 1px;
+    cursor: pointer;
+    object-position : "middle";
+}
+.searchBtn:hover {
+    background: #32AAFF;
+    cursor: pointer;
+}
+
+.barogagi{
+    line-height:-50px;
+    width:300px;
+    height:100px;
+    border:0;
+    background: #32AAFF;
+    color: white;
+    font-weight: bold;
+    border-radius: 1px;
+    margin:0 auto;
+    cursor: pointer;
+    object-position : "middle";
+    font-weight: bold;
+    font-size: 30px;
+}
+.barogagi:hover {
+    /*background: #32AAFF;*/
+    background:gray;
+}
+
+#centeralign{/*입출금 글자 정렬*/
+    font-weight: bold;
+    font-size: 30px;
+    display : inline-block;
+    margin : 0 auto;
+    width : 150px;
+}
+.container{
+    width:1080px;
+    height:720px;
+    position:absolute;
+    left:25%;
+    top:15%;
+    margin-left:-150px;
+    text-align: center;
+}
+.contentdiv{
+    width: 1080px;
+    height: 720px;
+    font-weight: bold;
+    font-size: 30px;
+
+}
+.content{
+    display : inline-block;
+    margin : 0 auto;
+    padding : 10px;
+    width: 540px; /* content div랑 같아야함.*/
+    height:120px;   /* content div랑 같아야함.*/
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 120px;
+}
+
+
+</style>
+    <form class="form-side">
           <a href="{% url 'gachon_flea:wallet' %}">
               <div id="side"><input type="button" id="side-bar" value="지갑 보기"></div>
           </a>
@@ -67,33 +157,27 @@
 
 
       </form>
-    <table border="0">
-      <thead>
-        <tr>
-            <th scope="row", rowspan="2">가천월렛(지갑아이콘 넣고)<br/><!-- 지갑보기 -->
-                잔액 : {{ balance }} 원 입니다.</th>
-        </tr>
-      </thead>
-      <tbody>
-      <tr>
-          <th>
-              환전 기능입니다. <br>
-              <form method="POST" action="{%url 'gachon_flea:exchange'%}">
-            {% csrf_token %}
-            <input name="money" type="text" id="money" class="int" maxlength="50">
-            <button type="submit" class="btn btn-primary" id="btnJoin"></button>
-        </form>
-          </th>
-      </tr>
-        <th>
-                충전 기능입니다.<br>
+    <div class='container'>
+        <p id='centeralign'>입출금내역</p>
+            <div class='contentdiv'>
+                    <div class='content'>총 보유 금액</div>
+                    <div class='content'>{{ balance }}</div>
+                    <div class='content'>000000 gachon coin</div>
+                 <br>
+                환전 기능입니다.<br>
             <form method="POST" action="{%url 'gachon_flea:charge'%}">
             {% csrf_token %}
             <input name="money" type="text" id="money" class="int" maxlength="50">
-            <button type="submit" class="btn btn-primary" id="btnJoin"></button>
+            <button type="submit" class="btn btn-primary" id="btnJoin">환전하기</button>
+                <br>
+            </form>
+                충전 기능입니다. <br>
+              <form method="POST" action="{%url 'gachon_flea:exchange'%}">
+            {% csrf_token %}
+            <input name="money" type="text" id="money" class="int" maxlength="50">
+            <button type="submit" class="btn btn-primary" id="btnJoin">충전하기</button>
         </form>
 
-        </th>
-      </tbody>
-    </table>
- {% endblock %}
+            </div>
+    </div>
+    {% endblock %}
