@@ -27,7 +27,7 @@ SECRET_KEY = 'tiaf1+u=$4^(b23!#gbrz*9!!&z$kbx+j11m&!ola1y@vdels@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['172.30.31.210', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -149,4 +149,4 @@ MESSAGE_LEVEL = messages_constants.DEBUG
 CART_SESSION_ID = 'cart'
 
 DISQUS_SHORTNAME = 'pydjango-web-programming'
-DISQUS_MY_DOMAIN = 'http://localhost' #자기 IP주소
+DISQUS_MY_DOMAIN = 'http://172.30.31.210:8000' #자기 IP주소
