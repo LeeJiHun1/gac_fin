@@ -2,18 +2,12 @@
 {% block title %}Search.html{% endblock %}
 {% block content %}
 
-    <b>'{{ search_term }}'에 대한 검색 결과</b>
     <hr>
 
     <form action="." method="post" class="btn-toolbar justify-content-between" style="width:1000px; height:50px;">{% csrf_token %}
         {{ form.as_table }}
         <input type="submit" value="검색하기" class="btn btn-primary btn-sm" style="width:100px; height:50px;">
     </form><hr><br>
-
-    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-outline-secondary" value="low">낮은가격순</button>
-        <button type="button" class="btn btn-outline-secondary" value="high">높은가격순</button>
-    </div>
 
 
 

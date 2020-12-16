@@ -156,11 +156,11 @@ color:white; }
     <img src="/static/img/gachon.jpg" alt="gachon">
 </a>
 <!--검색창-->
-<a action="/gachon/search/" method="post"> {% csrf_token %}
+<form action="/gachon/search/" method="post"> {% csrf_token %}
         <input class='search_window' type="search" placeholder="검색어 입력" name="search_word">
         <button type='submit' class='searchbtn'>검색</button>
         {% if user.is_active %}
-        <button type="button" class="memberbtn">{% firstof user.get_short_name user.get_username %}</button></a>
+        <button type="button" class="memberbtn">{% firstof user.get_short_name user.get_username %}</button></form>
         <a href="{% url 'gachon_flea:logout' %}" style="color:#fff;"><button type="button"  class="logoutbtn" > 로그아웃</button></a>
          <a href="{% url 'gachon_flea:mypage' %}"  style="color:#fff;"><button type="button" class="mypagebtn">마이페이지</button></a>
         <a href="{% url 'gachon_flea:add' %}" style="color:#fff;"><button type="button" class="addbtn">    상품등록</button></a>
