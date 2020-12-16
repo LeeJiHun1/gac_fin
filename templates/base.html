@@ -15,22 +15,20 @@
 <style>
 .search_window {
 	display: inline-block;
-	width: 366px; height: 40px;
+	width: 330px; height: 35px;
 	border: 3px solid #32AAFF;
 	background: white;
 }
 .input_text {
-	width: 348px; height: 21px;
-	margin: 6px 0 0 9px;
-	border: 0;
-	line-height: 21px;
+	width: 330px; height: 35px;
+	line-height: 18px;
 	font-weight: bold;
 	font-size: 16px;
 	outline: none;
 }
-.sch_smit {
+.searchbtn {
 	width: 54px; height: 40px;
-	margin: 0; border: 0;
+    margin: 0 auto; border: 0;
 	vertical-align: top;
 	background: #32AAFF;
 	color: white;
@@ -38,9 +36,15 @@
 	border-radius: 1px;
 	cursor: pointer;
 }
-.sch_smit:hover {
-	background: #32AAFF;
+.searchbtn:hover {
+	background: gray;
 }
+.searchdiv{
+    display:inline-block;
+    width:389px;
+    height:35px;
+}
+
 </style>
 {% block aaaa %}
 {% endblock %}
@@ -49,20 +53,19 @@
 </a>
 <!--검색창-->
 <form class='search_window' action="/gachon/search/" method="post"> {% csrf_token %}
-    <input class='input_text' type="search" placeholder="검색어 입력" name="search_word">
-    <br>
-    <button type='submit' class='sch_smit'>검색</button>
+    <div class="searchdiv"><input class='input_text' type="search" placeholder="검색어 입력" name="search_word">
+        <button type='submit' class='searchbtn'>검색</button></div>   
 </form>
 
 
-            <li class = "nav-item dropdown mx-1 btn btn-primary">
+            <li class = "nav-item dropdown mx-1 btn btn-primary" style= float:right;>
                 {% if user.is_active %}
                 <a class = "nav-link dropdown-toggle text-white" href="#" data-toggle = "dropdown">
                     <i class = "fas fa-user"></i>&ensp;{% firstof user.get_short_name user.get_username %}&ensp;</a>
                 <div class = "dropdown-menu">
-                    <a class = "dropdown-item" href="{% url 'gachon_flea:logout' %}">Logout</a>
-                    <a class = "dropdown-item" href="{% url 'gachon_flea:mypage' %}">Mypage</a>
-
+                    <a class = "dropdown-item" href="{% url 'gachon_flea:logout' %}">로그아웃</a>
+                    <a class = "dropdown-item" href="{% url 'gachon_flea:mypage' %}">마이페이지</a>
+                    <a class = "dropdown-item" href="{% url 'gachon_flea:add' %}">상품등록</a>
                 </div>
                 {%else%}
                 <a class = "nav-link dropdown-toggle text-white"href="#"data-toggle="dropdown">
@@ -72,7 +75,7 @@
                     <a class="dropdown-item " href="{% url 'gachon_flea:signup' %}">회원 가입</a>
                 </div>
                 {% endif %}
-            </li>
+            </li>   
 
 <div class="container">
     {% block content %}{% endblock %}
