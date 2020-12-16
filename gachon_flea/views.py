@@ -236,11 +236,21 @@ class mywallet(ListView):
         context["balance"] = checkbal(self.request.user.profile.wallet)
         return context
 
-class buy_ing(LoginRequiredMixin, ListView): #진행 중인 구매
+class buy_ing(LoginRequiredMixin, ListView): # 구매 목록
     model = ViewBuyList
     template_name = 'gachon_flea/mypage/mypage_buy_ing.html'
 
-class sell_ing(LoginRequiredMixin, ListView): # 진행 중인 판매
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["ViewBuyList"] = ViewBuyList.objects.all()
+        context["balance"] = checkbal(self.request.user.profile.wallet)
+        print(context)
+        return context
+
+    def get_queryset(self):
+        return Product.objects.filter(owner=self.request.user)
+
+class sell_ing(LoginRequiredMixin, ListView): # 판매 목록
     model = Product
     template_name = 'gachon_flea/mypage/mypage_sell_ing.html'
 
@@ -262,19 +272,6 @@ class got(LoginRequiredMixin, ListView): # 찜 목록
 
     def get_queryset(self):
         return Cart.objects.filter(owner=self.request.user)
-
-class buy(LoginRequiredMixin, ListView): #구매 내역
-    model = ViewBuyList
-    template_name = 'gachon_flea/mypage/mypage_buy.html'
-    def get_queryset(self):
-        return ViewBuyList.objects.filter(owner=self.request.user)
-
-class sell(LoginRequiredMixin, ListView): #판매 내역
-    model = ViewSellList
-    template_name = 'gachon_flea/mypage/mypage_sell.html'
-
-    def get_queryset(self):
-        return ViewSellList.objects.filter(owner=self.request.user)
 
 class check_review(LoginRequiredMixin, ListView): # 후기 목록
     model = Review

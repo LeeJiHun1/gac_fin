@@ -28,8 +28,6 @@ urlpatterns = [
 
     path('mypage/buy_ing/', views.buy_ing.as_view(), name='buy_ing'),
     path('mypage/sell_ing/', views.sell_ing.as_view(), name='sell_ing'),
-    path('mypage/buy/', views.buy.as_view(), name='buy'),
-    path('mypage/sell/', views.sell.as_view(), name='sell'),
     path('mypage/got/', views.got.as_view(), name='got'),
     path('mypage/review/', views.check_review.as_view(), name='check_review'),
     path('mypage/wallet/', views.mywallet.as_view(), name='wallet'),
