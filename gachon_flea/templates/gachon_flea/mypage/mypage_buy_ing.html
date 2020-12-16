@@ -98,7 +98,7 @@
                     {% if product.product_id.sell == True %}
                 <tr>
                     <th><li>{{ product.product_id.name }}</li>
-
+                        <a href="{% url 'gachon_flea:create_review' %}" style="color:blue;">리뷰 작성하기</a>
                     </th>
                 </tr>
              {% endif %}
