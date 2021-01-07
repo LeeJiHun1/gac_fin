@@ -55,10 +55,10 @@
       <div id="side"><input type="button" id="side-bar" value="지갑 보기"></div>
   </a>
   <a href="{% url 'gachon_flea:buy_ing' %}">
-      <div id="side"><input type="button" id="side-bar" value="진행중인 구매"></div>
+      <div id="side"><input type="button" id="side-bar" value="구매 목록"></div>
   </a>
   <a href="{% url 'gachon_flea:sell_ing' %}">
-      <div id="side"><input type="button" id="side-bar" value="진행중인 판매"></div>
+      <div id="side"><input type="button" id="side-bar" value="판매 목록"></div>
   </a>
   <a href="{% url 'cart:cart_detail' %}">
        <div id="side"><input type="button" id="side-bar" value="찜 목록"></div>
@@ -70,7 +70,7 @@
     <table border="0">
       <thead>
         <tr>
-            <th scope="row", rowspan="2">가천월렛(지갑아이콘 넣고)<br/><!-- 지갑보기 -->
+            <th scope="row", rowspan="2">가천월렛<br/><!-- 지갑보기 -->
                 잔액 : {{ balance }} 원 입니다.</th>
         </tr>
       </thead>
@@ -81,7 +81,7 @@
               <form method="POST" action="{%url 'gachon_flea:exchange'%}">
             {% csrf_token %}
             <input name="money" type="text" id="money" class="int" maxlength="50">
-            <button type="submit" class="btn btn-primary" id="btnJoin"></button>
+            <button type="submit" class="btn btn-primary" id="btnJoin">환전</button>
         </form>
           </th>
       </tr>
@@ -90,7 +90,7 @@
             <form method="POST" action="{%url 'gachon_flea:charge'%}">
             {% csrf_token %}
             <input name="money" type="text" id="money" class="int" maxlength="50">
-            <button type="submit" class="btn btn-primary" id="btnJoin"></button>
+            <button type="submit" class="btn btn-primary" id="btnJoin">충전</button>
         </form>
 
         </th>

@@ -27,7 +27,7 @@ SECRET_KEY = 'tiaf1+u=$4^(b23!#gbrz*9!!&z$kbx+j11m&!ola1y@vdels@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.30.1.59', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['172.30.1.20', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'six',
     'cart.apps.CartConfig',
     'complete.apps.CompleteConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -135,9 +136,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 # gmail과의 통신하는 포트
-EMAIL_HOST_USER = 'a51575368@gmail.com'
+EMAIL_HOST_USER = 'soformende9@gmail.com'
 # 발신할 이메일
-EMAIL_HOST_PASSWORD = 'lj54821@@'
+EMAIL_HOST_PASSWORD = 'zkxntk10@'
 # 발신할 메일의 비밀번호
 EMAIL_USE_TLS = True
 # TLS 보안 방법
@@ -149,4 +150,4 @@ MESSAGE_LEVEL = messages_constants.DEBUG
 CART_SESSION_ID = 'cart'
 
 DISQUS_SHORTNAME = 'pydjango-web-programming'
-DISQUS_MY_DOMAIN = 'http://172.30.1.59:8000' #자기 IP주소
+DISQUS_MY_DOMAIN = 'http://172.30.1.20:8000' #자기 IP주소
